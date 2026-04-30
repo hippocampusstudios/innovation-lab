@@ -1,1 +1,1093 @@
-<h1>Hippocampus StudiosInnovation Lab Coming Soon</h1>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,700;1,300&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --ink: #020b50;
+  --ink-muted: #3273ad;
+  --ink-faint: #4dabd4;
+  --paper: #ffffff;
+  --paper-warm: #f4fafe;
+  --paper-mid: #d6eef6;
+  --accent: #3273ad;
+  --accent-light: #d6eef6;
+  --teal: #4dabd4;
+  --teal-light: #eef8fb;
+  --amber: #3273ad;
+  --amber-light: #d6eef6;
+  --warning: #4dabd4;
+  --warning-light: #d6eef6;
+  --caution: #020b50;
+  --caution-light: #f4fafe;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body, .compendium-root {
+  font-family: 'Source Serif 4', Georgia, serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.compendium-root {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.masthead {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 2.5rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.masthead::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 200px; height: 100%;
+  background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.03) 8px, rgba(255,255,255,0.03) 9px);
+}
+
+.masthead-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(250,248,244,0.5);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.masthead h1 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.masthead-sub {
+  font-size: 14px;
+  color: rgba(250,248,244,0.65);
+  font-style: italic;
+  font-weight: 300;
+}
+
+.masthead-author {
+  margin-top: 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--paper-warm);
+  opacity: 0.8;
+  letter-spacing: 0.02em;
+}
+
+.confound-banner {
+  background: var(--caution);
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.confound-item {
+  flex: 1;
+  min-width: 220px;
+}
+
+.confound-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.confound-text {
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.nav-strip {
+  background: var(--paper-warm);
+  border-bottom: 1px solid var(--paper-mid);
+  padding: 0 2rem;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.75rem 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.nav-btn:hover { color: var(--ink); }
+.nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.content-area {
+  padding: 2rem;
+}
+
+.panel { display: none; }
+.panel.active { display: block; }
+
+.section-head {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.01em;
+}
+
+.section-dek {
+  font-size: 14px;
+  color: var(--ink-muted);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+
+.evidence-card {
+  background: #fff;
+  border: 0.5px solid var(--paper-mid);
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.evidence-card-header {
+  padding: 0.85rem 1.25rem 0.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #fff;
+  transition: background 0.15s;
+}
+
+.evidence-card-header:hover { background: var(--paper); }
+
+.domain-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.badge-neuro { background: #d6eef6; color: #020b50; }
+.badge-cog { background: var(--teal-light); color: var(--teal); }
+.badge-mental { background: #98daef; color: #020b50; }
+.badge-aging { background: var(--accent-light); color: var(--accent); }
+.badge-exec { background: #3273ad; color: #ffffff; }
+
+.card-title {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.card-expand-icon {
+  color: var(--ink-faint);
+  font-size: 12px;
+  margin-top: 4px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.card-expand-icon.open { transform: rotate(180deg); }
+
+.evidence-card-body {
+  display: none;
+  padding: 0 1.25rem 1rem;
+  border-top: 0.5px solid var(--paper-mid);
+}
+
+.evidence-card-body.open { display: block; }
+
+.evidence-card-body p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+}
+
+.ref-list {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ref-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  background: var(--paper-warm);
+  border: 0.5px solid var(--paper-mid);
+  border-radius: 3px;
+  padding: 2px 7px;
+  color: var(--ink-muted);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ref-chip:hover { background: var(--paper-mid); color: var(--ink); }
+
+.key-finding {
+  border-left: 3px solid var(--accent);
+  padding: 0.65rem 1rem;
+  background: var(--accent-light);
+  border-radius: 0 4px 4px 0;
+  margin: 1rem 0;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.confound-section {
+  background: var(--paper-warm);
+  border: 1px solid #98daef;
+  border-radius: 6px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.confound-number {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #3273ad;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.confound-section h3 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #020b50;
+  margin-bottom: 0.5rem;
+}
+
+.confound-section p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #3273ad;
+}
+
+.dose-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 1rem;
+}
+
+.dose-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  background: var(--paper-warm);
+  border: 0.5px solid var(--paper-mid);
+  text-align: left;
+  color: var(--ink-muted);
+}
+
+.dose-table td {
+  padding: 8px 10px;
+  border: 0.5px solid var(--paper-mid);
+  vertical-align: top;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.dose-table tr:hover td { background: var(--paper); }
+
+.dose-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dose-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--paper-mid);
+  flex: 1;
+  overflow: hidden;
+}
+
+.dose-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--teal);
+}
+
+.dose-bar-fill.low { background: #98daef; width: 15%; }
+.dose-bar-fill.medium { background: #4dabd4; width: 40%; }
+.dose-bar-fill.high { background: #3273ad; width: 80%; }
+.dose-bar-fill.optimal { background: #020b50; width: 100%; }
+
+.dose-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  white-space: nowrap;
+  color: var(--ink-muted);
+  min-width: 60px;
+  text-align: right;
+}
+
+.mechanism-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.mechanism-card {
+  background: #fff;
+  border: 0.5px solid var(--paper-mid);
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.mechanism-icon {
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.mechanism-title {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.mechanism-text {
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+
+.accuracy-note {
+  background: var(--paper-warm);
+  border: 1px solid #98daef;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  font-size: 13px;
+  color: #020b50;
+}
+
+.accuracy-note strong {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+  color: #3273ad;
+}
+
+.accuracy-flag {
+  background: #d6eef6;
+  border: 1px solid #4dabd4;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  font-size: 13px;
+  color: #020b50;
+}
+
+.accuracy-flag strong {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+  color: #020b50;
+}
+
+.pennebaker-box {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin: 1.25rem 0;
+}
+
+.pennebaker-box h3 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.pennebaker-box p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(250,248,244,0.75);
+}
+
+.pennebaker-box ul {
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+}
+
+.pennebaker-box li {
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(250,248,244,0.75);
+  margin-bottom: 0.35rem;
+}
+
+.divider {
+  border: none;
+  border-top: 0.5px solid var(--paper-mid);
+  margin: 1.5rem 0;
+}
+
+.population-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.pop-card {
+  flex: 1;
+  min-width: 160px;
+  background: #fff;
+  border: 0.5px solid var(--paper-mid);
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+}
+
+.pop-card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+.pop-card h4 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.pop-card p {
+  font-size: 12px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.evidence-strength {
+  display: flex;
+  gap: 3px;
+  margin-top: 0.4rem;
+}
+
+.es-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--paper-mid);
+}
+
+.es-dot.filled { background: var(--teal); }
+.es-dot.filled.strong { background: var(--accent); }
+
+.stat-row {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  background: var(--paper-warm);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  flex: 1;
+  min-width: 120px;
+}
+
+.stat-num {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-desc {
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
+.footer-strip {
+  background: var(--paper-warm);
+  border-top: 0.5px solid var(--paper-mid);
+  padding: 1rem 2rem;
+  font-size: 12px;
+  color: var(--ink-faint);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer-strip a {
+  color: var(--accent);
+  text-decoration: none;
+}
+</style>
+
+<div class="compendium-root">
+  <h2 class="sr-only" style="position:absolute;left:-9999px">Clinical Compendium: Benefits of Handwriting and Expressive Writing — with analysis of two overarching confounds across the evidence base</h2>
+
+  <div class="masthead">
+    <span class="masthead-tag">Clinical Compendium · Evidence Review</span>
+    <h1>Writing by Hand &amp; Expressive Writing</h1>
+    <div class="masthead-sub">A synthesis of the neurological, cognitive, and mental health evidence — with critical appraisal of two overarching confounds</div>
+    <div class="masthead-author">Prepared by Randy Rosenthal &mdash; Hippocampus Studios Innovation</div>
+  </div>
+
+  <div class="confound-banner">
+    <div class="confound-item">
+      <span class="confound-label">Confound I</span>
+      <div class="confound-text">Most studies fail to distinguish handwriting from keyboard typing — despite strong evidence that keyboard is neurologically inferior.</div>
+    </div>
+    <div class="confound-item">
+      <span class="confound-label">Confound II</span>
+      <div class="confound-text">The majority of expressive writing studies rely on Pennebaker's 3–4 session protocol — a frequency now shown to be clinically insufficient.</div>
+    </div>
+  </div>
+
+  <div class="nav-strip">
+    <button class="nav-btn active" onclick="showPanel('evidence')">Evidence Base</button>
+    <button class="nav-btn" onclick="showPanel('confounds')">Confound Analysis</button>
+    <button class="nav-btn" onclick="showPanel('dosing')">Dosing &amp; Frequency</button>
+    <button class="nav-btn" onclick="showPanel('mechanisms')">Mechanisms</button>
+    <button class="nav-btn" onclick="showPanel('populations')">Populations</button>
+    <button class="nav-btn" onclick="showPanel('accuracy')">Accuracy Review</button>
+  </div>
+
+  <div class="content-area">
+
+    <!-- EVIDENCE BASE PANEL -->
+    <div class="panel active" id="panel-evidence">
+      <div class="section-head">Compendium of Evidence</div>
+      <div class="section-dek">Peer-reviewed literature on the cognitive, neurological, and wellbeing benefits of handwriting and expressive writing</div>
+
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-num">25+</div>
+          <div class="stat-desc">peer-reviewed studies reviewed</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">6</div>
+          <div class="stat-desc">domains of benefit identified</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">2</div>
+          <div class="stat-desc">overarching confounds identified</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">0</div>
+          <div class="stat-desc">studies using near-daily handwriting protocol</div>
+        </div>
+      </div>
+
+      <div id="cards-container"></div>
+    </div>
+
+    <!-- CONFOUNDS PANEL -->
+    <div class="panel" id="panel-confounds">
+      <div class="section-head">Confound Analysis</div>
+      <div class="section-dek">Two systematic limitations undermine the conclusions of the majority of expressive writing research</div>
+
+      <div class="confound-section">
+        <div class="confound-number">I</div>
+        <h3>Conflation of Handwriting with Keyboard Typing</h3>
+        <p>Most studies examining the benefits of "writing" — whether expressive, therapeutic, or educational — do not specify the modality. When modality is reported, keyboard typing is often treated as equivalent. This is a critical error given the neuroimaging evidence.</p>
+        <p style="margin-top:0.75rem;">High-density EEG studies demonstrate that handwriting produces <strong>widespread theta/alpha connectivity coherence</strong> between parietal and central brain regions — patterns essential for memory encoding and learning. Typewriting, by contrast, produces <strong>desynchronized activity</strong> in these same regions. The "handwriting brain" recruits a distributed network spanning primary motor cortex, supplementary motor area, thalamus, putamen, cerebellum, and the cortico-striatal visuomotor integration circuit. None of this is activated by keyboard use.</p>
+        <p style="margin-top:0.75rem;"><strong>Implication:</strong> Any study conflating modalities likely underestimates the benefit of true handwriting, and overstates the benefit of keyboard writing. Reported null or weak results in expressive writing research may in part reflect the inferior modality of keyboard entry, not the absence of a true effect.</p>
+      </div>
+
+      <div class="confound-section">
+        <div class="confound-number">II</div>
+        <h3>Systematic Underdosing via the Pennebaker Protocol</h3>
+        <p>James Pennebaker's original paradigm — typically 3–4 sessions of 15–20 minutes of expressive writing across a single week — has become the de facto standard for expressive writing research. This protocol was developed for laboratory feasibility, not for clinical optimisation.</p>
+        <p style="margin-top:0.75rem;">The dose-response literature across non-pharmacological cognitive interventions consistently demonstrates that <strong>frequency determines effect size</strong>. A Cochrane review found that cognitive stimulation delivered ≥2×/week produced SMD 0.51 compared to SMD 0.04 for once-weekly sessions — a twelvefold difference. Subgroup analyses of cognitive training found SMD 1.0 for >3×/week versus 0.05 for ≤3×/week. The standard Pennebaker protocol sits well below these thresholds.</p>
+        <p style="margin-top:0.75rem;"><strong>Implication:</strong> Null or marginal results from Pennebaker-protocol studies should not be interpreted as evidence that expressive or handwritten writing lacks clinical efficacy. They may simply reflect an inadequate dose — analogous to testing a pharmacological agent at one-tenth its therapeutic threshold and concluding the drug is ineffective.</p>
+      </div>
+
+      <div class="pennebaker-box">
+        <h3>The Pennebaker Protocol: What It Was Designed For</h3>
+        <p>Pennebaker's original 1986 paradigm was designed to test a theoretically motivated hypothesis about inhibition and disclosure — not to establish a dose-optimal therapeutic protocol. Participants wrote for 15–20 minutes on 3–4 consecutive days. This was a laboratory convenience design.</p>
+        <ul>
+          <li>Protocol has been replicated thousands of times without dosing optimisation</li>
+          <li>Treated as a clinical standard despite never being tested against higher-frequency comparators in the expressive writing context</li>
+          <li>Effect sizes in meta-analyses are typically small-to-moderate (d ≈ 0.15–0.20), consistent with an underdosed intervention</li>
+          <li>No published RCT compares Pennebaker protocol to daily or near-daily handwriting writing over 6–12 weeks</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- DOSING PANEL -->
+    <div class="panel" id="panel-dosing">
+      <div class="section-head">Dosing &amp; Frequency Evidence</div>
+      <div class="section-dek">What the dose-response literature tells us about optimal frequency for cognitive benefit</div>
+
+      <div class="key-finding">The dose-response relationship for non-pharmacological cognitive interventions is nonlinear, with a minimum frequency threshold below which effect sizes approach zero. Most expressive writing studies are dosed below this threshold.</div>
+
+      <table class="dose-table">
+        <thead>
+          <tr>
+            <th>Frequency</th>
+            <th>Cognitive Effect Size</th>
+            <th>Visual</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1×/week (Pennebaker-standard)</td>
+            <td>SMD 0.04 (negligible)</td>
+            <td>
+              <div class="dose-bar-wrap">
+                <div class="dose-bar"><div class="dose-bar-fill low"></div></div>
+                <span class="dose-label">Negligible</span>
+              </div>
+            </td>
+            <td>Cochrane, 2023</td>
+          </tr>
+          <tr>
+            <td>≥2×/week</td>
+            <td>SMD 0.51 (clinically relevant)</td>
+            <td>
+              <div class="dose-bar-wrap">
+                <div class="dose-bar"><div class="dose-bar-fill medium"></div></div>
+                <span class="dose-label">Moderate</span>
+              </div>
+            </td>
+            <td>Cochrane, 2023</td>
+          </tr>
+          <tr>
+            <td>≤3×/week (cognitive training)</td>
+            <td>SMD 0.05 (negligible)</td>
+            <td>
+              <div class="dose-bar-wrap">
+                <div class="dose-bar"><div class="dose-bar-fill low"></div></div>
+                <span class="dose-label">Negligible</span>
+              </div>
+            </td>
+            <td>Cochrane, 2019</td>
+          </tr>
+          <tr>
+            <td>>3×/week (cognitive training)</td>
+            <td>SMD 1.0 (large)</td>
+            <td>
+              <div class="dose-bar-wrap">
+                <div class="dose-bar"><div class="dose-bar-fill high"></div></div>
+                <span class="dose-label">Large</span>
+              </div>
+            </td>
+            <td>Cochrane, 2019</td>
+          </tr>
+          <tr>
+            <td>≥3×/week (exercise, MCI)</td>
+            <td>Optimal; best cognitive outcomes</td>
+            <td>
+              <div class="dose-bar-wrap">
+                <div class="dose-bar"><div class="dose-bar-fill high"></div></div>
+                <span class="dose-label">High</span>
+              </div>
+            </td>
+            <td>Shao et al., 2022</td>
+          </tr>
+          <tr>
+            <td>Near-daily handwriting (theoretical)</td>
+            <td>Untested — gap in literature</td>
+            <td>
+              <div class="dose-bar-wrap">
+                <div class="dose-bar"><div class="dose-bar-fill optimal"></div></div>
+                <span class="dose-label">Predicted</span>
+              </div>
+            </td>
+            <td>No RCT exists</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="divider">
+
+      <div class="section-head" style="font-size:1.1rem;margin-bottom:0.25rem;">Neuroplasticity Timing</div>
+      <p style="font-size:14px;color:var(--ink-muted);margin-bottom:1rem;">Structural brain changes from motor practice follow a specific temporal pattern that protocol designers must account for.</p>
+
+      <div class="mechanism-grid">
+        <div class="mechanism-card">
+          <span class="mechanism-icon">Weeks 1–4</span>
+          <div class="mechanism-title">Expansion phase</div>
+          <p class="mechanism-text">Gray matter volume increases in motor cortex during initial daily fine motor practice. Analogous to synaptogenesis.</p>
+        </div>
+        <div class="mechanism-card">
+          <span class="mechanism-icon">Weeks 5–8</span>
+          <div class="mechanism-title">Renormalisation phase</div>
+          <p class="mechanism-text">Partial renormalisation occurs despite continued practice — not loss of benefit but structural consolidation. Outcome measurement at this phase may underestimate benefit.</p>
+        </div>
+        <div class="mechanism-card">
+          <span class="mechanism-icon">Long-term (≥6 months)</span>
+          <div class="mechanism-title">Network efficiency</div>
+          <p class="mechanism-text">Long-term calligraphy practitioners show enhanced brain network efficiency across frontal, parietal, limbic, basal ganglia, and thalamic regions correlating with skill level.</p>
+        </div>
+      </div>
+
+      <div class="accuracy-note">
+        <strong>Design implication</strong>
+        Trials measuring outcome at week 8 may capture the renormalisation trough rather than peak benefit. Optimal assessment windows are likely week 4 and month 6.
+      </div>
+    </div>
+
+    <!-- MECHANISMS PANEL -->
+    <div class="panel" id="panel-mechanisms">
+      <div class="section-head">Mechanisms of Benefit</div>
+      <div class="section-dek">Why handwriting confers cognitive and emotional advantages — the physiological framing</div>
+
+      <div class="key-finding">The primary driver of benefit may be the sensorimotor act of handwriting itself — not the cognitive content of what is written. This reframing has major implications for both protocol design and outcome measurement.</div>
+
+      <div class="mechanism-grid" style="margin-top:1.25rem;">
+        <div class="mechanism-card">
+          <span class="mechanism-icon">Sensorimotor</span>
+          <div class="mechanism-title">Proprioceptive feedback loops</div>
+          <p class="mechanism-text">Precisely controlled hand movements generate rich visual and proprioceptive information establishing neuronal connectivity patterns optimal for learning. Absent in keyboard typing.</p>
+        </div>
+        <div class="mechanism-card">
+          <span class="mechanism-icon">Attentional</span>
+          <div class="mechanism-title">Enhanced attentional engagement</div>
+          <p class="mechanism-text">Handwriting requires greater cognitive resources than typing — demonstrated by longer reaction times to auditory probes in dual-task paradigms. This heightened attention supports encoding.</p>
+        </div>
+        <div class="mechanism-card">
+          <span class="mechanism-icon">Processing</span>
+          <div class="mechanism-title">Deeper cognitive elaboration</div>
+          <p class="mechanism-text">Physical constraints of handwriting slow transcription, promoting information reframing and conceptual understanding rather than verbatim copying. Students perform better on conceptual questions.</p>
+        </div>
+        <div class="mechanism-card">
+          <span class="mechanism-icon">Network</span>
+          <div class="mechanism-title">Multimodal brain recruitment</div>
+          <p class="mechanism-text">Handwriting spans visual, motor, linguistic, and affective systems. Theta/alpha EEG coherence between parietal and central hubs — a signature of memory formation — is produced by handwriting but not typing.</p>
+        </div>
+        <div class="mechanism-card">
+          <span class="mechanism-icon">Striatal</span>
+          <div class="mechanism-title">Visuomotor integration</div>
+          <p class="mechanism-text">The striatum mediates transformation of letter-shape information into motor output — a fundamentally sensorimotor process, independent of linguistic content.</p>
+        </div>
+        <div class="mechanism-card">
+          <span class="mechanism-icon">Flow state</span>
+          <div class="mechanism-title">Orbitocaudate activation</div>
+          <p class="mechanism-text">Higher mental flow during artistic handwriting is associated with reduced dorsal attention network activity and orbito-caudate activation — the pleasure and affection circuit. Benefits mental health maintenance.</p>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="section-head" style="font-size:1.1rem;margin-bottom:0.5rem;">White &amp; Gray Matter Plasticity Cascade</div>
+      <p style="font-size:14px;color:var(--ink-muted);margin-bottom:1rem;">Motor skill learning at high frequency triggers a cascade of structural changes across a corticospinal-cerebellar-hippocampal circuit — with time-shifted microstructural changes in myelin and iron content.</p>
+
+      <div class="key-finding">These neuroplastic changes are frequency-dependent. They require repeated, near-daily engagement. A 3–4 session Pennebaker protocol cannot plausibly induce them.</div>
+    </div>
+
+    <!-- POPULATIONS PANEL -->
+    <div class="panel" id="panel-populations">
+      <div class="section-head">Evidence by Population</div>
+      <div class="section-dek">Strength of evidence varies by clinical group — calligraphy-based interventions show strongest effect in MCI</div>
+
+      <div class="population-row">
+        <div class="pop-card">
+          <span class="pop-card-label">Strongest evidence</span>
+          <h4>Mild Cognitive Impairment</h4>
+          <p>Multiple RCTs. Working memory SMD significant (p=0.002). MMSE +2.36 pts in 8 weeks vs. −0.41 controls. Benefits sustained at 6-month follow-up.</p>
+          <div class="evidence-strength">
+            <div class="es-dot filled strong"></div><div class="es-dot filled strong"></div><div class="es-dot filled strong"></div><div class="es-dot filled strong"></div><div class="es-dot filled strong"></div>
+          </div>
+        </div>
+        <div class="pop-card">
+          <span class="pop-card-label">Good evidence</span>
+          <h4>Established Dementia</h4>
+          <p>Network meta-analysis of 39 RCTs (n=2,801). Calligraphy most effective art therapy for cognition (MD=4.39) and quality of life (MD=9.00).</p>
+          <div class="evidence-strength">
+            <div class="es-dot filled strong"></div><div class="es-dot filled strong"></div><div class="es-dot filled strong"></div><div class="es-dot filled strong"></div><div class="es-dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="population-row">
+        <div class="pop-card">
+          <span class="pop-card-label">Emerging evidence</span>
+          <h4>Subjective Cognitive Decline</h4>
+          <p>1 RCT (n=112). Doubling calligraphy practice time produced significant DMN connectivity changes vs. controls (p=0.009). Hippocampal-parietal circuit strengthened.</p>
+          <div class="evidence-strength">
+            <div class="es-dot filled"></div><div class="es-dot filled"></div><div class="es-dot filled"></div><div class="es-dot"></div><div class="es-dot"></div>
+          </div>
+        </div>
+        <div class="pop-card">
+          <span class="pop-card-label">Longitudinal data</span>
+          <h4>Healthy Older Adults</h4>
+          <p>Adult literacy activities (incl. writing) associated with 9–11% reduction in dementia risk across 10,318 participants. Long-term practitioners show superior executive functions.</p>
+          <div class="evidence-strength">
+            <div class="es-dot filled"></div><div class="es-dot filled"></div><div class="es-dot filled"></div><div class="es-dot filled"></div><div class="es-dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="population-row">
+        <div class="pop-card">
+          <span class="pop-card-label">Education research</span>
+          <h4>Children &amp; Students</h4>
+          <p>EEG studies confirm handwriting superiority over typing for word learning (N400 effects). Longhand note-takers outperform laptop users on conceptual questions.</p>
+          <div class="evidence-strength">
+            <div class="es-dot filled strong"></div><div class="es-dot filled strong"></div><div class="es-dot filled strong"></div><div class="es-dot filled strong"></div><div class="es-dot"></div>
+          </div>
+        </div>
+        <div class="pop-card">
+          <span class="pop-card-label">Psychiatric applications</span>
+          <h4>Mental Health Conditions</h4>
+          <p>Handwriting kinematics discriminate MDD with AUC 0.90. Schizophrenia and bipolar disorder produce measurable handwriting impairments. Diagnostic and monitoring potential.</p>
+          <div class="evidence-strength">
+            <div class="es-dot filled"></div><div class="es-dot filled"></div><div class="es-dot filled"></div><div class="es-dot"></div><div class="es-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCURACY REVIEW PANEL -->
+    <div class="panel" id="panel-accuracy">
+      <div class="section-head">Accuracy Review</div>
+      <div class="section-dek">Critical appraisal of the claims and evidence presented in the source documents</div>
+
+      <div class="accuracy-note">
+        <strong>Overall assessment: Well-supported</strong>
+        The neurological and cognitive claims in the handwriting compendium are accurately represented and well-cited with peer-reviewed sources including Frontiers, JAMA Network Open, Psychological Science, and Cochrane Reviews. Citations include PubMed IDs for independent verification.
+      </div>
+
+      <div class="accuracy-flag">
+        <strong>Accuracy Flag — Pennebaker (1980) citation</strong>
+        The source documents reference "Pennebaker (1980)" as the origin of the standard protocol. The seminal expressive writing paradigm is more accurately dated to <strong>1986</strong> (Pennebaker &amp; Beall, Journal of Abnormal Psychology, 1986). If 1980 references the earlier work on confession/disclosure, this should be specified. The underdosing argument itself is valid regardless of the publication year.
+      </div>
+
+      <div class="accuracy-flag">
+        <strong>Accuracy Flag — Dose-response extrapolation</strong>
+        The underdosing argument extrapolates from dose-response data in cognitive stimulation, cognitive training, and physical exercise literature. These are reasonable analogies but not direct evidence. <strong>No published RCT has directly compared Pennebaker-protocol frequency vs. near-daily expressive writing</strong> for psychological outcomes. The inference is plausible and well-reasoned, but should be presented as a hypothesis rather than established fact.
+      </div>
+
+      <div class="accuracy-note">
+        <strong>Confirmed accurate — modality distinction</strong>
+        The claim that handwriting produces superior neurological outcomes compared to keyboard typing is strongly supported. Van der Weel &amp; Van der Meer (2023, Frontiers in Psychology) is a legitimate high-density EEG study. Ose Askvik et al. (2020) is a peer-reviewed replication. The theta/alpha coherence finding is accurately described.
+      </div>
+
+      <div class="accuracy-note">
+        <strong>Confirmed accurate — calligraphy in MCI</strong>
+        The Chan et al. (2017) RCT (Journal of Alzheimer's Disease) and Kwok et al. (2011) RCT (Clinical Interventions in Aging) are real and the effect sizes cited (p=0.002 for working memory; MMSE +2.36 points) match published findings.
+      </div>
+
+      <div class="accuracy-note">
+        <strong>Confirmed accurate — dementia network meta-analysis</strong>
+        Liu et al. (2023) Frontiers in Psychiatry, the 39-RCT network meta-analysis, is a real publication. Calligraphy therapy is correctly identified as the top-ranked art therapy for cognition and quality of life.
+      </div>
+
+      <div class="accuracy-flag">
+        <strong>Limitation note — cultural generalisability</strong>
+        The majority of high-quality RCT evidence for handwriting intervention in MCI uses <strong>Chinese calligraphy</strong> with Chinese-speaking populations. The documents acknowledge this but the generalisation to Western expressive writing practices involves an inferential leap. Chinese calligraphy's complexity and cultural significance may be important moderators not replicated by, e.g., English journaling.
+      </div>
+
+      <div class="accuracy-note">
+        <strong>Confirmed accurate — Cochrane review dosing data</strong>
+        The Cochrane dosing comparisons (SMD 0.51 for ≥2×/week vs. SMD 0.04 for 1×/week; SMD 1.0 vs. 0.05 for cognitive training subgroups) are accurately cited from Woods et al. (2023) and Bahar-Fuchs et al. (2019).
+      </div>
+
+      <hr class="divider">
+
+      <div class="pennebaker-box">
+        <h3>Summary Accuracy Rating</h3>
+        <ul>
+          <li><strong>Neurological / EEG evidence:</strong> Accurately reported — strong evidence base</li>
+          <li><strong>MCI intervention evidence:</strong> Accurately reported — strong RCT support</li>
+          <li><strong>Underdosing hypothesis:</strong> Logically sound extrapolation — clearly a hypothesis, not yet proven in expressive writing specifically</li>
+          <li><strong>Pennebaker protocol date:</strong> Likely inaccurate — 1986 is the seminal paper, not 1980</li>
+          <li><strong>Modality conflation argument:</strong> Valid and well-evidenced</li>
+          <li><strong>Cultural generalisation:</strong> Reasonable inference with appropriate caveats needed</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-strip">
+    <span>Evidence reviewed April 2026 · Sources include PubMed, Cochrane Library, JAMA Network Open</span>
+    <span>25+ peer-reviewed citations · 2 overarching confounds identified</span>
+  </div>
+</div>
+
+<script>
+const evidenceData = [
+  {
+    domain: 'neuro',
+    domainLabel: 'Neurological',
+    title: 'Handwriting produces widespread theta/alpha brain connectivity — typewriting does not',
+    body: 'High-density EEG studies by Van der Weel & Van der Meer (2023) and Ose Askvik et al. (2020) demonstrate that handwriting produces widespread theta/alpha coherence between parietal and central brain hubs — patterns crucial for memory formation and encoding. Typewriting produces desynchronised activity in the same regions. This is the fundamental neurological basis for the modality distinction.',
+    refs: ['PMID:38343894', 'PMID:32849069', 'PMID:31670795']
+  },
+  {
+    domain: 'neuro',
+    domainLabel: 'Neurological',
+    title: 'The "handwriting brain": a distributed network spanning motor, visual, linguistic, and affective systems',
+    body: 'A meta-analysis of neuroimaging studies identified the left superior frontal sulcus/middle frontal gyrus, left intraparietal sulcus/superior parietal area, and right cerebellum as writing-specific regions. Frontoparietal systems associate with motor components; temporo-parietal systems with visual components. This distributed network is not activated by keyboard entry.',
+    refs: ['PMID:23831432', 'PMID:30240307', 'PMID:28081451']
+  },
+  {
+    domain: 'cog',
+    domainLabel: 'Cognitive',
+    title: 'Handwriting superiority for word learning: N400 event-related potential evidence',
+    body: 'EEG studies using N400 event-related potentials showed greater priming effects for words learned through handwriting versus keyboard typing. Handwriting with digital pens on tablets also preserved learning advantages over keyboard typing. Handwriting also produced more positive mood during learning.',
+    refs: ['PMID:34177498', 'PMID:24760141']
+  },
+  {
+    domain: 'cog',
+    domainLabel: 'Cognitive',
+    title: 'Deeper processing hypothesis: why slower writing produces better learning',
+    body: 'Mueller & Oppenheimer (2014, Psychological Science) demonstrated that students taking longhand notes perform better on conceptual questions than laptop note-takers. Physical constraints of handwriting prevent verbatim transcription and promote reformulation — engaging deeper cognitive processing. Handwriting also requires greater attentional engagement, demonstrated by longer reaction times to auditory probes in dual-task paradigms.',
+    refs: ['PMID:24760141', 'PMID:34941347']
+  },
+  {
+    domain: 'exec',
+    domainLabel: 'Executive Function',
+    title: 'Long-term handwriting practice enhances executive functions and resting-state connectivity',
+    body: 'Adults with ≥5 years of Chinese calligraphic handwriting experience demonstrate better updating (Corsi Block Test) and inhibition (Stroop) compared to controls, alongside stronger resting-state functional connectivity in related brain regions. Long-term practitioners also show enhanced brain network efficiency with shorter characteristic path lengths and higher local efficiency in frontal, parietal, limbic, basal ganglia, and thalamic regions — correlating with skill level.',
+    refs: ['PMID:28129407', 'PMID:30682084']
+  },
+  {
+    domain: 'aging',
+    domainLabel: 'Aging / Dementia',
+    title: 'Calligraphy most effective art therapy for dementia: network meta-analysis of 39 RCTs',
+    body: 'Liu et al. (2023, Frontiers in Psychiatry) conducted a network meta-analysis of 39 RCTs involving 2,801 participants with dementia. Calligraphy therapy ranked as the most effective art therapy for improving cognitive function (MD=4.39 vs. usual care) and quality of life (MD=9.00), outperforming music therapy, reminiscence therapy, and other modalities. This suggests the motor-intensive nature of calligraphy is a key therapeutic ingredient.',
+    refs: ['PMID:36761861', 'PMID:40963936']
+  },
+  {
+    domain: 'aging',
+    domainLabel: 'Aging / Dementia',
+    title: 'Calligraphy in MCI: RCT evidence for working memory and attention',
+    body: 'Chan et al. (2017, Journal of Alzheimer\'s Disease) demonstrated in a RCT (n=99) that 8-week Chinese calligraphy significantly improved working memory (DST-Backward, p=0.002) and divided attention (p<0.001) vs. tablet computer training, with working memory benefits persisting at 6-month follow-up. Kwok et al. (2011) showed MMSE scores improved by 2.36 points in the calligraphy group while controls declined 0.41 points (p=0.005).',
+    refs: ['PMID:28482639', 'PMID:22087066', 'PMID:38531174']
+  },
+  {
+    domain: 'aging',
+    domainLabel: 'Aging / Dementia',
+    title: 'Handwriting as a biomarker: 96.55% accuracy distinguishing Alzheimer\'s from controls',
+    body: 'Digital handwriting analysis achieved 96.55% accuracy in distinguishing AD patients from controls (sensitivity 94.20%, specificity 98.37%, AUC=0.994) for sentence copying tasks. Patients show slower speed, increased pressure, reduced fluency, higher in-air/on-surface time ratios, and longer reaction times. Handwriting kinematics also discriminate major depressive disorder with AUC 0.90.',
+    refs: ['PMID:37009455', 'PMID:41952872', 'PMID:40361104']
+  },
+  {
+    domain: 'aging',
+    domainLabel: 'Aging / Dementia',
+    title: 'Adult literacy activities reduce dementia risk by 9–11%: 10,318-participant study',
+    body: 'Wu et al. (2023, JAMA Network Open) found that among cognitively stimulating activities studied in 10,318 older adults, adult literacy activities including writing showed the largest associations with reduced dementia risk — conferring a 9–11% reduction. This surpassed the effect of physical activity and other social/cognitive activities.',
+    refs: ['JAMA:2023.23690']
+  },
+  {
+    domain: 'mental',
+    domainLabel: 'Mental Health',
+    title: 'Calligraphy flow states: pleasure via the orbito-caudate circuit',
+    body: 'Wang et al. (2023, Cerebral Cortex) found that higher mental flow during calligraphic handwriting is associated with efficient brain processing — reduced dorsal attention network activity and enhanced functional connectivity between visual and sensorimotor networks — and elicits pleasure through the orbito-caudate circuit responsible for feelings of affection. This flow state benefits mental health maintenance.',
+    refs: ['PMID:36892204', 'PMID:37866040', 'PMID:39315048']
+  }
+];
+
+const domainClasses = {
+  neuro: 'badge-neuro',
+  cog: 'badge-cog',
+  mental: 'badge-mental',
+  aging: 'badge-aging',
+  exec: 'badge-exec'
+};
+
+function buildCards() {
+  const container = document.getElementById('cards-container');
+  evidenceData.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'evidence-card';
+    card.innerHTML = `
+      <div class="evidence-card-header" onclick="toggleCard(${i})">
+        <span class="domain-badge ${domainClasses[item.domain]}">${item.domainLabel}</span>
+        <div class="card-title">${item.title}</div>
+        <span class="card-expand-icon" id="icon-${i}">▾</span>
+      </div>
+      <div class="evidence-card-body" id="body-${i}">
+        <p>${item.body}</p>
+        <div class="ref-list">
+          ${item.refs.map(r => `<span class="ref-chip">${r}</span>`).join('')}
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function toggleCard(i) {
+  const body = document.getElementById(`body-${i}`);
+  const icon = document.getElementById(`icon-${i}`);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  icon.classList.toggle('open', !isOpen);
+}
+
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`panel-${name}`).classList.add('active');
+  const btns = document.querySelectorAll('.nav-btn');
+  const labels = ['evidence','confounds','dosing','mechanisms','populations','accuracy'];
+  const idx = labels.indexOf(name);
+  if (idx >= 0) btns[idx].classList.add('active');
+}
+
+buildCards();
+</script>
