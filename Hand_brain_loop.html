@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hand-Brain Loop: Clinical Compendium</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#020b50;--ink2:#122a4a;--ink3:#3273ad;--ink4:#4dabd4;
+  --paper:#ffffff;--paper2:#f4fafe;--paper3:#eef8fb;--paper4:#d6eef6;
+  --rust:#3273ad;--rust-l:#f4fafe;--rust-b:#d6eef6;
+  --teal:#4dabd4;--teal-l:#eef8fb;--teal-b:#98daef;
+  --gold:#3273ad;--gold-l:#f4fafe;--gold-b:#d6eef6;
+  --slate:#020b50;--slate-l:#eef8fb;--slate-b:#98daef;
+  --sage:#3273ad;--sage-l:#f4fafe;--sage-b:#d6eef6;
+  --border:#d6eef6;--shadow:rgba(2,11,80,.08);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);font-size:15px;line-height:1.7;min-height:100vh}
+
+/* ── SIDEBAR ── */
+#sidebar{position:fixed;top:0;left:0;width:260px;height:100vh;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;z-index:100;overflow-y:auto;transform:translateX(-100%);transition:transform .3s}
+#sidebar.open{transform:translateX(0);box-shadow:4px 0 15px rgba(0,0,0,0.2)}
+.sb-brand{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-brand-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,247,242,.4);display:block;margin-bottom:.4rem}
+.sb-brand-title{font-family:'Playfair Display',Georgia,serif;font-size:1.05rem;font-weight:700;line-height:1.25;color:var(--paper)}
+.sb-hypothesis{margin:.75rem 1.25rem 0;padding:.65rem .85rem;background:rgba(50,115,173,.25);border:1px solid rgba(50,115,173,.4);border-radius:4px;font-size:11px;color:rgba(250,247,242,.7);line-height:1.55;font-style:italic}
+.sb-section-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,247,242,.3);padding:.9rem 1.25rem .3rem;margin-top:.4rem}
+.sb-link{display:flex;align-items:center;gap:.6rem;padding:.45rem 1.25rem;font-size:12.5px;color:rgba(250,247,242,.6);cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none}
+.sb-link:hover{color:var(--paper);background:rgba(255,255,255,.05);border-left-color:rgba(255,255,255,.2)}
+.sb-link.active{color:var(--paper);background:rgba(50,115,173,.2);border-left-color:#4dabd4}
+.sb-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.5;flex-shrink:0}
+.sb-link.active .sb-dot{opacity:1;background:#4dabd4}
+.sb-footer{margin-top:auto;padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:rgba(250,247,242,.3);line-height:1.5}
+.sb-contact{color:rgba(250,247,242,.55);text-decoration:none;display:block;margin-top:.3rem;font-family:'JetBrains Mono',monospace;font-size:10px}
+
+/* ── MAIN ── */
+#main{min-height:100vh}
+
+/* ── HERO ── */
+.hero{background:var(--ink);color:var(--paper);padding:3.5rem 3rem 3rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,.012) 40px,rgba(255,255,255,.012) 41px)}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#020b50 0%,#3273ad 33%,#4dabd4 66%,#98daef 100%)}
+.hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(250,247,242,.4);margin-bottom:1rem;display:block}
+.hero-title{font-family:'Playfair Display',Georgia,serif;font-size:2.6rem;font-weight:900;line-height:1.1;margin-bottom:.75rem;letter-spacing:-.02em}
+.hero-title span{color:#4dabd4}
+.hero-sub{font-size:15px;color:rgba(250,247,242,.6);max-width:620px;line-height:1.7;margin-bottom:1.5rem}
+.hero-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.hero-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;padding:3px 10px;border:1px solid rgba(255,255,255,.15);border-radius:20px;color:rgba(250,247,242,.5)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);border-radius:6px;overflow:hidden;margin-top:1.5rem}
+.hero-stat{background:rgba(0,0,0,.2);padding:1rem;text-align:center}
+.hero-stat-n{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#4dabd4;line-height:1}
+.hero-stat-l{font-size:11px;color:rgba(250,247,242,.45);margin-top:.25rem;line-height:1.4}
+
+/* ── SECTIONS ── */
+.section{padding:2.5rem 3rem;border-bottom:1px solid var(--border)}
+.section:last-child{border-bottom:none}
+.section-header{margin-bottom:1.5rem}
+.section-eyebrow{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);margin-bottom:.4rem;display:block}
+.section-title{font-family:'Playfair Display',Georgia,serif;font-size:1.6rem;font-weight:700;line-height:1.2;margin-bottom:.3rem}
+.section-dek{font-size:14px;color:var(--ink3);font-style:italic;line-height:1.65}
+
+/* ── CARDS ── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.85rem;margin:1.2rem 0}
+.card{background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:box-shadow .15s}
+.card:hover{box-shadow:0 4px 16px var(--shadow)}
+.card-head{padding:1rem 1.2rem .75rem;cursor:pointer;display:flex;align-items:flex-start;gap:.75rem}
+.card-tag{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:3px;flex-shrink:0;margin-top:2px}
+.tag-neuro{background:var(--paper4);color:var(--ink)}
+.tag-cog{background:var(--teal-l);color:var(--teal)}
+.tag-mental{background:var(--gold-l);color:var(--gold)}
+.tag-llm{background:var(--slate-l);color:var(--slate)}
+.tag-dose{background:var(--rust-l);color:var(--rust)}
+.tag-clinical{background:var(--sage-l);color:var(--sage)}
+.tag-entropy{background:var(--paper3);color:var(--ink)}
+.card-title{font-size:.9rem;font-weight:600;line-height:1.35;flex:1;color:var(--ink)}
+.card-chev{color:var(--ink4);font-size:11px;margin-top:3px;flex-shrink:0;transition:transform .2s}
+.card-chev.open{transform:rotate(180deg)}
+.card-body{display:none;padding:0 1.2rem .9rem;border-top:1px solid var(--border)}
+.card-body.open{display:block}
+.card-body p{font-size:13.5px;color:var(--ink2);line-height:1.7;margin-top:.75rem}
+.card-body p+p{margin-top:.5rem}
+.card-refs{display:flex;flex-wrap:wrap;gap:4px;margin-top:.65rem}
+.card-ref{font-family:'JetBrains Mono',monospace;font-size:9.5px;background:var(--paper2);border:1px solid var(--border);border-radius:3px;padding:2px 7px;color:var(--ink3)}
+
+/* ── CALLOUTS ── */
+.callout{border-radius:6px;padding:1rem 1.25rem;margin:1rem 0;font-size:13.5px;line-height:1.7}
+.callout strong{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:.35rem}
+.callout.rust{background:var(--rust-l);border:1px solid var(--rust-b);color:var(--ink)}
+.callout.teal{background:var(--teal-l);border:1px solid var(--teal-b);color:var(--ink)}
+.callout.gold{background:var(--gold-l);border:1px solid var(--gold-b);color:var(--ink)}
+.callout.slate{background:var(--slate-l);border:1px solid var(--slate-b);color:var(--ink)}
+.callout.sage{background:var(--sage-l);border:1px solid var(--sage-b);color:var(--ink)}
+.callout.purple{background:var(--paper3);border:1px solid var(--border);color:var(--ink)}
+.blockquote{border-left:3px solid var(--rust);padding:.65rem 1rem;background:var(--rust-l);border-radius:0 5px 5px 0;font-style:italic;font-size:14px;color:var(--ink2);margin:1rem 0}
+
+/* ── STAT ROWS ── */
+.stat-row{display:flex;gap:.65rem;margin:1rem 0;flex-wrap:wrap}
+.stat{background:var(--paper2);border-radius:6px;padding:.85rem 1rem;flex:1;min-width:110px}
+.stat-n{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--rust);line-height:1}
+.stat-d{font-size:11.5px;color:var(--ink3);margin-top:.2rem;line-height:1.4}
+
+/* ── EVIDENCE TABLE ── */
+.ev-table{width:100%;border-collapse:collapse;font-size:13px;margin:1rem 0}
+.ev-table th{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:7px 10px;background:var(--paper3);border:1px solid var(--border);text-align:left;color:var(--ink3)}
+.ev-table td{padding:8px 10px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.ev-table tr:hover td{background:var(--paper2)}
+.es-bar{display:flex;align-items:center;gap:6px}
+.es-track{height:5px;background:var(--paper3);border-radius:3px;width:80px;flex-shrink:0}
+.es-fill{height:100%;border-radius:3px}
+.es-fill.neg{background:var(--rust)}
+.es-fill.mod{background:var(--gold)}
+.es-fill.pos{background:var(--teal)}
+.es-fill.lg{background:var(--sage)}
+
+/* ── MECHANISM MAP ── */
+.mechanism-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin:1rem 0}
+.mech{background:#fff;border:1px solid var(--border);border-radius:6px;padding:.9rem}
+.mech-icon{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:.3rem}
+.mech h4{font-size:.85rem;font-weight:600;margin-bottom:.3rem;line-height:1.3}
+.mech p{font-size:12px;color:var(--ink3);line-height:1.55}
+
+/* ── HYPOTHESIS BOX ── */
+.hyp-box{background:var(--ink);color:var(--paper);border-radius:8px;padding:1.75rem 2rem;margin:1.25rem 0;position:relative;overflow:hidden}
+.hyp-box::before{content:'"';position:absolute;top:-1rem;left:1rem;font-family:'Playfair Display',serif;font-size:8rem;color:rgba(255,255,255,.04);line-height:1}
+.hyp-box h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:.75rem;color:var(--paper)}
+.hyp-box p{font-size:13.5px;color:rgba(250,247,242,.7);line-height:1.7}
+.hyp-box ul{padding-left:1.2rem;margin-top:.6rem}
+.hyp-box li{font-size:13px;color:rgba(250,247,242,.65);line-height:1.65;margin-bottom:.3rem}
+.hyp-box .hyp-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#4dabd4;display:block;margin-bottom:.4rem}
+
+/* ── PILLARS ── */
+.pillar-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem;margin:1rem 0}
+.pillar{border-radius:7px;padding:1.1rem 1.2rem;border:1px solid}
+.pillar.rust{background:var(--rust-l);border-color:var(--rust-b)}
+.pillar.teal{background:var(--teal-l);border-color:var(--teal-b)}
+.pillar.gold{background:var(--gold-l);border-color:var(--gold-b)}
+.pillar.slate{background:var(--slate-l);border-color:var(--slate-b)}
+.pillar.purple{background:var(--paper3);border-color:var(--border)}
+.pillar.sage{background:var(--sage-l);border-color:var(--sage-b)}
+.pillar-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.35rem;display:block}
+.pillar.rust .pillar-label{color:var(--rust)}
+.pillar.teal .pillar-label{color:var(--teal)}
+.pillar.gold .pillar-label{color:var(--gold)}
+.pillar.slate .pillar-label{color:var(--slate)}
+.pillar.purple .pillar-label{color:var(--ink3)}
+.pillar.sage .pillar-label{color:var(--sage)}
+.pillar h4{font-size:.9rem;font-weight:600;margin-bottom:.4rem;line-height:1.3}
+.pillar p{font-size:12.5px;line-height:1.6}
+.pillar.rust p{color:var(--ink2)}.pillar.teal p{color:var(--ink2)}.pillar.gold p{color:var(--ink2)}
+.pillar.slate p{color:var(--ink2)}.pillar.purple p{color:var(--ink2)}.pillar.sage p{color:var(--ink2)}
+
+/* ── HR ── */
+hr{border:none;border-top:1px solid var(--border);margin:1.5rem 0}
+
+/* ── REFS SECTION ── */
+.ref-list{display:flex;flex-direction:column;gap:.5rem}
+.ref-entry{background:#fff;border:1px solid var(--border);border-radius:5px;padding:.85rem 1rem;font-size:12.5px}
+.ref-entry .ref-num{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--rust);font-weight:500}
+.ref-entry .ref-title{font-weight:600;color:var(--ink);line-height:1.4;margin:.2rem 0}
+.ref-entry .ref-meta{color:var(--ink3);font-size:12px}
+.ref-entry a{color:var(--teal);text-decoration:none}
+.ref-entry a:hover{text-decoration:underline}
+.ref-cat-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);margin:1.2rem 0 .5rem;padding-bottom:.3rem;border-bottom:1px solid var(--border)}
+
+/* ── TRIAL BOX ── */
+.trial{background:#fff;border:2px solid var(--teal-b);border-radius:8px;padding:1.5rem;margin:1.25rem 0}
+.trial h3{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--teal);margin-bottom:.9rem}
+.trial-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem}
+.trial-item{padding:.75rem;background:var(--teal-l);border-radius:5px}
+.trial-item .ti-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:.25rem}
+.trial-item p{font-size:12.5px;color:var(--ink2);line-height:1.55}
+
+/* ── SEARCH ── */
+.search-wrap{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--border);padding:.75rem 3rem}
+.search-inner{display:flex;align-items:center;gap:.75rem}
+.search-input{flex:1;max-width:400px;padding:.45rem .85rem;border:1px solid var(--border);border-radius:20px;font-size:13px;background:var(--paper2);color:var(--ink);font-family:'Inter',sans-serif;outline:none}
+.search-input:focus{border-color:var(--rust);background:#fff}
+.search-count{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink3)}
+
+.menu-toggle {
+  display: block;
+  background: none;
+  border: none;
+  color: var(--ink);
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding-right: 0.5rem;
+}
+
+/* ── FOOTER ── */
+.main-footer{background:var(--paper3);border-top:1px solid var(--border);padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
+.main-footer-l{font-size:12px;color:var(--ink3)}
+.main-footer-r{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink4)}
+
+/* ── UTILITIES ── */
+.highlight{background:#fff3cd;border-radius:2px;padding:0 2px}
+.sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 11, 80, 0.4);
+  z-index: 90;
+  backdrop-filter: blur(2px);
+}
+.overlay.open { display: block; }
+
+.sb-close {
+  display: block;
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: none;
+  border: none;
+  color: rgba(250,247,242,0.6);
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+@media(max-width:900px){
+  .hero,.section{padding-left:1.5rem;padding-right:1.5rem}
+  .mechanism-row,.pillar-grid,.trial-grid{grid-template-columns:1fr}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- OVERLAY -->
+<div id="sidebar-overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<nav id="sidebar" aria-label="Compendium navigation">
+  <button class="sb-close" onclick="toggleSidebar()" aria-label="Close menu">&times;</button>
+  <div class="sb-brand">
+    <span class="sb-brand-tag">Clinical Compendium · April 2026</span>
+    <div class="sb-brand-title">The Hand-Brain Loop: Writing, Cognition & the AI Interface</div>
+  </div>
+  <div class="sb-hypothesis">
+    "Can structured handwriting prior to LLM use act as a biological pre-processor, reducing cognitive debt and entropy sink behavior?"
+  </div>
+
+  <span class="sb-section-label">Core Science</span>
+  <a class="sb-link active" href="#hypothesis" onclick="setActive(this)"><span class="sb-dot"></span>The Handwriting Hypothesis</a>
+  <a class="sb-link" href="#neuro" onclick="setActive(this)"><span class="sb-dot"></span>Neurological Basis</a>
+  <a class="sb-link" href="#handwriting-v-typing" onclick="setActive(this)"><span class="sb-dot"></span>Handwriting vs. Typing</a>
+  <a class="sb-link" href="#working-memory" onclick="setActive(this)"><span class="sb-dot"></span>Working Memory & DMN</a>
+
+  <span class="sb-section-label">Clinical Evidence</span>
+  <a class="sb-link" href="#cognitive" onclick="setActive(this)"><span class="sb-dot"></span>Cognitive Benefits</a>
+  <a class="sb-link" href="#mental-health" onclick="setActive(this)"><span class="sb-dot"></span>Mental Health</a>
+  <a class="sb-link" href="#mci-dementia" onclick="setActive(this)"><span class="sb-dot"></span>MCI & Dementia</a>
+  <a class="sb-link" href="#populations" onclick="setActive(this)"><span class="sb-dot"></span>Clinical Populations</a>
+
+  <span class="sb-section-label">AI Context</span>
+  <a class="sb-link" href="#llm-risk" onclick="setActive(this)"><span class="sb-dot"></span>LLM Cognitive Risks</a>
+  <a class="sb-link" href="#entropy" onclick="setActive(this)"><span class="sb-dot"></span>Entropy Sinks</a>
+  <a class="sb-link" href="#dosing" onclick="setActive(this)"><span class="sb-dot"></span>Dosing & Protocol</a>
+
+  <span class="sb-section-label">Research</span>
+  <a class="sb-link" href="#gaps" onclick="setActive(this)"><span class="sb-dot"></span>Evidence Gaps</a>
+  <a class="sb-link" href="#trial" onclick="setActive(this)"><span class="sb-dot"></span>Proposed Trial Design</a>
+  <a class="sb-link" href="#references" onclick="setActive(this)"><span class="sb-dot"></span>Full Reference List</a>
+
+  <div class="sb-footer">
+    <div>Randy Rosenthal · Hippocampus Studios Innovation</div>
+    <a class="sb-contact" href="mailto:randy@createchangenow.com">randy@createchangenow.com</a>
+    <a class="sb-contact" href="tel:+18132057606">+1 813.205.7606</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main id="main">
+<h1 class="sr-only">The Hand-Brain Loop: Clinical Compendium on the Cognitive and Health Benefits of Writing, with Special Reference to the Handwriting Hypothesis</h1>
+
+<!-- SEARCH BAR -->
+<div class="search-wrap">
+  <div class="search-inner">
+    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">☰</button>
+    <input class="search-input" id="searchInput" type="text" placeholder="Search citations, topics, findings..." oninput="doSearch(this.value)" aria-label="Search compendium">
+    <span class="search-count" id="searchCount"></span>
+    <button onclick="clearSearch()" style="font-size:12px;padding:4px 10px;border:1px solid var(--border);border-radius:12px;background:none;cursor:pointer;color:var(--ink3)">Clear</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <span class="hero-eyebrow">Prepared by Randy Rosenthal - Hippocampus Studios Innovation · April 2026</span>
+  <h2 class="hero-title">The <span>Hand-Brain Loop</span>:<br>Writing, Cognition & the AI Interface</h2>
+  <p class="hero-sub">A clinical compendium synthesising 60+ peer-reviewed studies across neuroscience, cognitive psychology, expressive writing, LLM-associated cognitive risk, and entropy theory - assembled to support the Handwriting Hypothesis and the research necessary to test it.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">Handwriting Neuroscience</span>
+    <span class="hero-tag">Cognitive Debt</span>
+    <span class="hero-tag">Entropy Sinks</span>
+    <span class="hero-tag">LLM Safety</span>
+    <span class="hero-tag">Expressive Writing</span>
+    <span class="hero-tag">Working Memory</span>
+    <span class="hero-tag">DMN Activation</span>
+    <span class="hero-tag">Cortical Priming</span>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-n">60+</div><div class="hero-stat-l">peer-reviewed studies synthesised</div></div>
+    <div class="hero-stat"><div class="hero-stat-n">0</div><div class="hero-stat-l">studies directly testing handwriting as LLM pre-processor</div></div>
+    <div class="hero-stat"><div class="hero-stat-n">3</div><div class="hero-stat-l">evidentiary pillars supporting the hypothesis</div></div>
+    <div class="hero-stat"><div class="hero-stat-n">2</div><div class="hero-stat-l">systemic confounds in the prior evidence base</div></div>
+  </div>
+</header>
+
+<!-- SECTION: HYPOTHESIS -->
+<section class="section" id="hypothesis">
+  <div class="section-header">
+    <span class="section-eyebrow">Handwriting Hypothesis · Overview</span>
+    <h2 class="section-title">The Central Research Question</h2>
+    <p class="section-dek">A novel, biologically grounded hypothesis at the intersection of neuroscience, AI safety, and lifestyle medicine</p>
+  </div>
+
+  <div class="hyp-box">
+    <span class="hyp-label">Central Hypothesis</span>
+    <h3>The Handwritten Pre-Processor</h3>
+    <p>Can structured handwritten externalization of thought prior to LLM use act as a biological "pre-processor," cortically priming users in ways that reduce entropy sink behavior - generating the high-entropy, high-fidelity inputs necessary to mitigate individual cognitive debt, restore signal richness to human-AI workflows, and reduce the downstream risk of systemic model collapse?</p>
+    <ul>
+      <li>No study has directly tested handwritten pre-processing as a cortical priming intervention within LLM workflows</li>
+      <li>The concept of entropy sinks has not been operationalised as a measurable variable in human-AI interaction research</li>
+      <li>The neural superiority of handwriting over typing is established; its transfer to LLM interaction quality is the research gap</li>
+    </ul>
+  </div>
+
+  <div class="pillar-grid">
+    <div class="pillar rust">
+      <span class="pillar-label">Pillar I - Established</span>
+      <h4>Handwriting is neurologically superior to typing</h4>
+      <p>High-density EEG studies demonstrate handwriting produces widespread theta/alpha coherence across parietal and central hubs - the neural signature of memory formation and encoding. Typing produces desynchronised activity in the same regions. This is not disputed.</p>
+    </div>
+    <div class="pillar teal">
+      <span class="pillar-label">Pillar II - Established</span>
+      <h4>LLM use is associated with measurable cognitive decline</h4>
+      <p>Kosmyna et al. (2025) directly measured LLM-associated cognitive debt via EEG, finding systematic downscaling of alpha and beta connectivity - reduced critical and creative thinking - as AI support increases. Keyboard-based pre-writing partially mitigated this effect.</p>
+    </div>
+    <div class="pillar gold">
+      <span class="pillar-label">Pillar III - Established</span>
+      <h4>Expressive writing increases working memory and frees cognitive load</h4>
+      <p>Klein &amp; Boals (2001) demonstrated expressive writing produces significant working memory gains by externalizing intrusive thoughts. Replicated cross-culturally. The DMN - neural substrate of creative and integrative thinking - is activated by unstructured writing.</p>
+    </div>
+    <div class="pillar slate">
+      <span class="pillar-label">Pillar IV - Theoretical</span>
+      <h4>Human input entropy is a measurable upstream risk variable</h4>
+      <p>Yang et al. (2026, npj AI) demonstrate that high-entropy network states generalize better in machine learning. If human inputs become shallower and more homogeneous through cognitive debt, this represents an upstream entropy drain - the "entropy sink" - that degrades model robustness over time.</p>
+    </div>
+    <div class="pillar purple">
+      <span class="pillar-label">The Inferential Bridge</span>
+      <h4>The gap the Handwriting research is designed to close</h4>
+      <p>Kosmyna et al. used keyboard-based writing as the pre-LLM condition, not handwriting. Since handwriting is a demonstrably higher-intensity neural stimulus, the hypothesis proposes it would produce a more robust priming effect and a more resilient hybrid cognitive state. This is the direct empirical question.</p>
+    </div>
+    <div class="pillar sage">
+      <span class="pillar-label">Why This Matters at Scale</span>
+      <h4>Aggregate risk is non-linear</h4>
+      <p>Complex systems theory establishes that small, distributed degradations accumulate non-linearly, remaining invisible until a criticality threshold is crossed. Even modest reductions in cognitive output quality across large user populations represent an aggregate risk accumulation mechanism current AI safety frameworks are not designed to detect.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: NEUROLOGY -->
+<section class="section" id="neuro">
+  <div class="section-header">
+    <span class="section-eyebrow">Neuroscience · Brain Connectivity</span>
+    <h2 class="section-title">The Neurological Basis of Handwriting's Superiority</h2>
+    <p class="section-dek">What EEG, fMRI, and neuroimaging studies reveal about why the pen activates what the keyboard cannot</p>
+  </div>
+
+  <div class="callout teal">
+    <strong>Core finding</strong>
+    Handwriting produces widespread theta/alpha connectivity coherence between parietal and central brain hubs - patterns critical for memory formation, encoding, and learning. Typewriting produces desynchronised activity in these same regions. This is replicated across age groups and laboratories.
+  </div>
+
+  <div class="mechanism-row">
+    <div class="mech">
+      <span class="mech-icon">EEG · Connectivity</span>
+      <h4>Theta/alpha coherence</h4>
+      <p>Van der Weel &amp; Van der Meer (2023, Frontiers in Psychology, n=36): handwriting generates widespread, synchronised theta/alpha connectivity. Typewriting desynchronises the same networks. Replicated in 12-year-olds and young adults by Ose Askvik et al. (2020).</p>
+    </div>
+    <div class="mech">
+      <span class="mech-icon">fMRI · Network</span>
+      <h4>The "handwriting brain"</h4>
+      <p>Meta-analysis of neuroimaging (Planton et al., 2013): handwriting recruits a primarily left-hemisphere network of 12+ cortical and subcortical regions including left superior frontal sulcus, intraparietal sulcus, and right cerebellum. Not activated by keyboard use.</p>
+    </div>
+    <div class="mech">
+      <span class="mech-icon">Sensorimotor</span>
+      <h4>Proprioceptive feedback loop</h4>
+      <p>Precisely controlled hand movements generate rich spatiotemporal patterns from visual and proprioceptive information that establish neuronal connectivity optimal for learning. Keyboard use bypasses this loop entirely - keys are identical regardless of letter.</p>
+    </div>
+    <div class="mech">
+      <span class="mech-icon">Striatum · Motor</span>
+      <h4>Visuomotor integration</h4>
+      <p>The striatum mediates transformation of stored letter-shape information into motor output during handwriting (Bartoň et al., 2020, fMRI). This is a sensorimotor process independent of linguistic content - activated by the act of writing, not the words written.</p>
+    </div>
+    <div class="mech">
+      <span class="mech-icon">Attention</span>
+      <h4>Heightened attentional demand</h4>
+      <p>Dual-task probe studies (Seyll et al., 2022): handwriting produces longer reaction times to auditory probes than typing - indicating greater attentional engagement. This heightened demand during learning contributes to superior encoding and retention.</p>
+    </div>
+    <div class="mech">
+      <span class="mech-icon">Neuroplasticity</span>
+      <h4>Gray matter changes in 4 weeks</h4>
+      <p>Wenger et al. (2017, Cerebral Cortex): daily fine motor practice produces measurable motor cortex gray matter expansion within 4 weeks, followed by partial renormalisation. White and gray matter plasticity occurs in corticospinal-cerebellar-hippocampal circuits with time-shifted microstructural changes.</p>
+    </div>
+  </div>
+
+  <div class="callout rust">
+    <strong>Key inference for the Handwriting Hypothesis</strong>
+    If handwriting produces a higher-intensity neural stimulus than keyboard writing, and Kosmyna et al. (2025) show that keyboard-based pre-writing partially preserves neural connectivity through LLM interaction, then handwriting-based pre-processing should produce a more robust priming effect. This is the specific hypothesis the proposed research is designed to test.
+  </div>
+
+  <div id="cards-neuro" class="card-grid"></div>
+</section>
+
+<!-- SECTION: HANDWRITING VS TYPING -->
+<section class="section" id="handwriting-v-typing">
+  <div class="section-header">
+    <span class="section-eyebrow">Modality · Comparative Evidence</span>
+    <h2 class="section-title">Handwriting vs. Typing: What the Evidence Shows</h2>
+    <p class="section-dek">A systematic comparison across memory, learning, attention, mood, and processing depth</p>
+  </div>
+
+  <table class="ev-table">
+    <thead>
+      <tr><th>Outcome Domain</th><th>Handwriting finding</th><th>Effect</th><th>Key source</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Brain connectivity</td><td>Widespread theta/alpha synchrony; typing produces desynchrony</td><td><div class="es-bar"><div class="es-track"><div class="es-fill lg" style="width:90%"></div></div><span style="font-size:11px">Strong</span></div></td><td>Van der Weel &amp; van der Meer, 2023</td></tr>
+      <tr><td>Memory encoding (ERP)</td><td>Greater N400 priming effects vs. keyboard</td><td><div class="es-bar"><div class="es-track"><div class="es-fill pos" style="width:75%"></div></div><span style="font-size:11px">Moderate-strong</span></div></td><td>Ihara et al., 2021</td></tr>
+      <tr><td>Conceptual learning</td><td>Better performance on conceptual questions (less verbatim)</td><td><div class="es-bar"><div class="es-track"><div class="es-fill pos" style="width:60%"></div></div><span style="font-size:11px">Moderate</span></div></td><td>Mueller &amp; Oppenheimer, 2014</td></tr>
+      <tr><td>Cognitive function (MoCA)</td><td>Higher overall MoCA, SDMT, BVMT-R scores in longhand</td><td><div class="es-bar"><div class="es-track"><div class="es-fill mod" style="width:45%"></div></div><span style="font-size:11px">Small-mod</span></div></td><td>Al-Sharman et al., 2025</td></tr>
+      <tr><td>Attentional engagement</td><td>Longer dual-task RT to auditory probes during handwriting</td><td><div class="es-bar"><div class="es-track"><div class="es-fill pos" style="width:65%"></div></div><span style="font-size:11px">Moderate</span></div></td><td>Seyll et al., 2022</td></tr>
+      <tr><td>Mind-wandering</td><td>Reduced mind-wandering vs. photograph or no notes; better retention</td><td><div class="es-bar"><div class="es-track"><div class="es-fill pos" style="width:60%"></div></div><span style="font-size:11px">Moderate</span></div></td><td>Wong &amp; Lim, 2023</td></tr>
+      <tr><td>Processing depth</td><td>More reformulation during writing; deeper conceptual processing</td><td><div class="es-bar"><div class="es-track"><div class="es-fill pos" style="width:65%"></div></div><span style="font-size:11px">Moderate</span></div></td><td>Cojean &amp; Grand, 2024</td></tr>
+      <tr><td>Mood during learning</td><td>Significantly more positive mood during handwriting vs. typing</td><td><div class="es-bar"><div class="es-track"><div class="es-fill pos" style="width:55%"></div></div><span style="font-size:11px">Moderate</span></div></td><td>Ihara et al., 2021</td></tr>
+      <tr><td>Factual recall</td><td>Superior content recollection after handwriting vs. smartphone tapping</td><td><div class="es-bar"><div class="es-track"><div class="es-fill pos" style="width:60%"></div></div><span style="font-size:11px">Moderate</span></div></td><td>Lee, 2021</td></tr>
+      <tr><td>Immediate quiz performance</td><td>Mixed - one replication found no advantage immediately post-lecture</td><td><div class="es-bar"><div class="es-track"><div class="es-fill mod" style="width:25%"></div></div><span style="font-size:11px">Inconsistent</span></div></td><td>Urry et al., 2021</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout gold">
+    <strong>Important nuance</strong>
+    Benefits are most robust for memory formation, brain connectivity, and long-term retention. Immediate performance advantages show more variability. This mirrors the expressive writing literature, where effects also emerge at follow-up rather than immediately - suggesting both operate via cognitive reorganisation processes rather than immediate performance enhancement.
+  </div>
+
+  <div id="cards-hvt" class="card-grid"></div>
+</section>
+
+<!-- SECTION: WORKING MEMORY / DMN -->
+<section class="section" id="working-memory">
+  <div class="section-header">
+    <span class="section-eyebrow">Cognitive Mechanisms</span>
+    <h2 class="section-title">Working Memory, Cognitive Load & Default Mode Network</h2>
+    <p class="section-dek">How expressive writing frees cognitive resources and enables the neural substrate of creative, integrative thinking</p>
+  </div>
+
+  <div class="pillar-grid">
+    <div class="pillar rust">
+      <span class="pillar-label">Working Memory - RCT Evidence</span>
+      <h4>Expressive writing increases WM capacity</h4>
+      <p>Klein &amp; Boals (2001, Journal of Experimental Psychology: General): expressive writing produced significantly larger working memory gains at 7 weeks vs. trivial-topic writing. Mechanism: reducing intrusive thoughts frees WM resources for primary tasks. Replicated in Japanese undergraduates (Yogo &amp; Fujihara, 2008).</p>
+    </div>
+    <div class="pillar teal">
+      <span class="pillar-label">Performance Under Pressure</span>
+      <h4>Writing reduces choking under pressure</h4>
+      <p>Yu &amp; Zhang (2022): expressive writing reduced "choking under pressure" in high-anxiety individuals by alleviating state anxiety and preserving cognitive processing capacity. Direct evidence that writing before a cognitively demanding task improves performance on that task.</p>
+    </div>
+    <div class="pillar gold">
+      <span class="pillar-label">Default Mode Network</span>
+      <h4>DMN and creative, integrative thinking</h4>
+      <p>Menon (2023, Neuron): the DMN integrates and broadcasts memory, language, and semantic representations to create the "internal narrative" central to self-construction, creative insight, and integrative thinking. Autobiographical and self-referential processing - core to expressive writing - activates DMN subsystems. Externally-directed LLM-first workflows may suppress DMN expression.</p>
+    </div>
+    <div class="pillar slate">
+      <span class="pillar-label">Cognitive Offloading Theory</span>
+      <h4>The Risko &amp; Gilbert framework</h4>
+      <p>Risko &amp; Gilbert (2016, Trends in Cognitive Sciences): cognitive offloading reduces the demand placed on internal cognitive processes. When offloading is to an LLM, the cognitive work is done externally and the internal representation is not formed. Handwriting before LLM use may ensure the internal representation exists before the external assistance begins.</p>
+    </div>
+  </div>
+
+  <div class="callout slate">
+    <strong>The Handwriting Hypothesis connection</strong>
+    The working memory liberation effect of expressive writing (Klein &amp; Boals, 2001) + the LLM cognitive debt effect (Kosmyna, 2025) + the DMN suppression hypothesis together form a coherent mechanistic model: LLM-first workflows suppress the DMN and increase cognitive debt; handwriting before LLM use could restore DMN expression, liberate working memory, and provide a cortically primed state that resists the debt accumulation.
+  </div>
+</section>
+
+<!-- SECTION: COGNITIVE BENEFITS -->
+<section class="section" id="cognitive">
+  <div class="section-header">
+    <span class="section-eyebrow">Clinical Evidence · Cognition</span>
+    <h2 class="section-title">Cognitive Benefits of Handwriting & Expressive Writing</h2>
+    <p class="section-dek">Evidence across learning, attention, executive function, and literacy acquisition</p>
+  </div>
+  <div id="cards-cog" class="card-grid"></div>
+</section>
+
+<!-- SECTION: MENTAL HEALTH -->
+<section class="section" id="mental-health">
+  <div class="section-header">
+    <span class="section-eyebrow">Clinical Evidence · Mental Health</span>
+    <h2 class="section-title">Mental Health Benefits of Expressive Writing</h2>
+    <p class="section-dek">Depression, anxiety, PTSD, and wellbeing outcomes from journaling and structured writing</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="stat-n">g=−0.12</div><div class="stat-d">Hedges' g for expressive writing on depression, anxiety &amp; stress (31 RCTs, N=4,012; Guo 2023)</div></div>
+    <div class="stat"><div class="stat-n">SMD −0.78</div><div class="stat-d">PTSD psychotherapies effect size vs. waitlist (NMA, 44 RCTs, N=7,724)</div></div>
+    <div class="stat"><div class="stat-n">SMD −0.81</div><div class="stat-d">Enhanced EW+therapist contact - comparable to PTSD psychotherapy</div></div>
+    <div class="stat"><div class="stat-n">21/31</div><div class="stat-d">studies showing creative writing significantly improved depression (Porras-Segovia 2024)</div></div>
+  </div>
+
+  <div class="callout gold">
+    <strong>Critical timing finding</strong>
+    Expressive writing effects on depression, anxiety, and stress emerge after a delay - at follow-up assessments rather than immediately post-intervention. This is the same pattern as the handwriting neuroplasticity literature. Studies using short inter-session intervals (1–3 days) yield stronger effects (g = −0.18) vs. weekly intervals. This has major implications for protocol design.
+  </div>
+
+  <div id="cards-mental" class="card-grid"></div>
+</section>
+
+<!-- SECTION: MCI / DEMENTIA -->
+<section class="section" id="mci-dementia">
+  <div class="section-header">
+    <span class="section-eyebrow">Clinical Evidence · Aging</span>
+    <h2 class="section-title">Handwriting in MCI, Dementia & Cognitive Aging</h2>
+    <p class="section-dek">RCT evidence and neuroimaging data supporting handwriting as a cognitive intervention across the aging spectrum</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="stat-n">p=0.002</div><div class="stat-d">Working memory improvement in MCI after 8-week calligraphy intervention (Chan et al. 2017, n=99)</div></div>
+    <div class="stat"><div class="stat-n">+2.36</div><div class="stat-d">MMSE point increase in calligraphy group vs. −0.41 in controls over 8 weeks (Kwok et al. 2011)</div></div>
+    <div class="stat"><div class="stat-n">MD=4.39</div><div class="stat-d">Cognitive function advantage of calligraphy over usual care in dementia (NMA, 39 RCTs, n=2,801)</div></div>
+    <div class="stat"><div class="stat-n">9–11%</div><div class="stat-d">Reduction in dementia risk from adult literacy activities (JAMA Network Open, n=10,318)</div></div>
+  </div>
+
+  <div id="cards-mci" class="card-grid"></div>
+</section>
+
+<!-- SECTION: POPULATIONS -->
+<section class="section" id="populations">
+  <div class="section-header">
+    <span class="section-eyebrow">Clinical Evidence · Populations</span>
+    <h2 class="section-title">Clinical Populations Benefiting from Writing Interventions</h2>
+    <p class="section-dek">Evidence across ADHD, ASD, stroke, Parkinson's, schizophrenia, cancer, and anxiety disorders</p>
+  </div>
+  <div id="cards-pop" class="card-grid"></div>
+</section>
+
+<!-- SECTION: LLM RISKS -->
+<section class="section" id="llm-risk">
+  <div class="section-header">
+    <span class="section-eyebrow">AI Context · Cognitive Risk</span>
+    <h2 class="section-title">LLM-Associated Cognitive Risks: The Evidence Base</h2>
+    <p class="section-dek">What the emerging literature shows about cognitive debt, deskilling, and the "cognitive miser" effect</p>
+  </div>
+
+  <div class="callout rust">
+    <strong>The Kosmyna et al. (2025) key finding</strong>
+    EEG analysis of participants using ChatGPT for essay writing revealed that brain functional connectivity systematically scales down as AI support increases - specifically within alpha and beta networks, expressed as reduced critical and creative thinking. Critically: participants who engaged in "brain-only" (keyboard) writing before switching to the LLM exhibited a network-wide spike in directed connectivity, suggesting the priming effect is real. Handwriting was not tested.
+  </div>
+
+  <div id="cards-llm" class="card-grid"></div>
+</section>
+
+<!-- SECTION: ENTROPY -->
+<section class="section" id="entropy">
+  <div class="section-header">
+    <span class="section-eyebrow">Handwriting Theory · Systems Risk</span>
+    <h2 class="section-title">Entropy Sinks & Systemic Model Risk</h2>
+    <p class="section-dek">The theoretical framework connecting individual cognitive debt to systemic AI model degradation</p>
+  </div>
+
+  <div class="hyp-box">
+    <span class="hyp-label">Author's Construct - Entropy Sink</span>
+    <h3>Defining the Entropy Sink</h3>
+    <p>An entropy sink is the process by which LLM-first cognitive workflows continuously drain high-entropy signal from the system before it reaches the model - through shallower prompting, reduced conceptual novelty, and reuse of LLM-generated n-grams. Entropy sinks operate at the human input level and are mechanistically upstream of, and conceptually distinct from, the model-level low-entropy traps that characterize model collapse (Shumailov et al., 2024).</p>
+    <ul>
+      <li>Yang et al. (2026, npj AI): high-entropy network states outperform conventionally trained states in generalisability across four ML tasks - thermodynamic grounding for why signal diversity matters to model robustness</li>
+      <li>Note: Yang et al.'s findings operate at the model's internal parameter space - applying this to human input entropy is a cross-level inference, and an explicit research gap the Handwriting study is designed to close</li>
+      <li>Shumailov et al. (2024, Nature): models trained on recursively generated AI data suffer "model collapse" - degraded performance over generations</li>
+    </ul>
+  </div>
+
+  <div class="callout purple">
+    <strong>The two-level risk architecture</strong>
+    Level 1 (individual): LLM use degrades critical thinking, working memory engagement, and creative output in individual users - the cognitive debt mechanism (Kosmyna, 2025; Tian &amp; Zhang, 2025). Level 2 (systemic): as user populations become cognitively indebted, their inputs become lower-entropy - shallower, more homogeneous, increasingly contaminated with AI-generated n-grams. This degrades model training data quality over time, risking the kind of model collapse Shumailov et al. describe, but from the human-input side rather than direct synthetic data injection.
+  </div>
+
+  <div id="cards-entropy" class="card-grid"></div>
+</section>
+
+<!-- SECTION: DOSING -->
+<section class="section" id="dosing">
+  <div class="section-header">
+    <span class="section-eyebrow">Protocol Design · Evidence-Based</span>
+    <h2 class="section-title">Dosing, Frequency & Protocol Optimisation</h2>
+    <p class="section-dek">What the dose-response literature tells us - and what the Pennebaker protocol gets wrong</p>
+  </div>
+
+  <div class="blockquote">The standard Pennebaker paradigm (3–4 sessions of 15–20 minutes) delivers approximately 60–80 minutes of total therapeutic exposure. Cochrane reviews establish that once-weekly cognitive interventions produce SMD 0.04 (negligible), while ≥2×/week produces SMD 0.51 - a twelvefold difference. The Pennebaker protocol sits squarely in the negligible range.</div>
+
+  <div id="cards-dose" class="card-grid"></div>
+
+  <hr>
+  <p style="font-size:13.5px;color:var(--ink2);margin-bottom:1rem">Evidence-based protocol parameters for optimal therapeutic writing:</p>
+
+  <table class="ev-table">
+    <thead><tr><th>Parameter</th><th>Evidence-based recommendation</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Session interval</td><td>1–3 days (short intervals yield stronger effect: g=−0.18 vs. weekly)</td><td>Guo 2023, meta-analysis 31 RCTs</td></tr>
+      <tr><td>Frequency</td><td>≥2×/week minimum; >3×/week for maximal cognitive benefit</td><td>Cochrane 2023, 2019</td></tr>
+      <tr><td>Duration per session</td><td>20 minutes; >20 may provide diminishing returns</td><td>Pennebaker paradigm + Krpan 2013</td></tr>
+      <tr><td>Modality</td><td>Pen on paper (not keyboard) - uncontrolled confound in all prior studies</td><td>Van der Weel 2023; Ihara 2021</td></tr>
+      <tr><td>Engagement depth</td><td>Essay length (proxy for engagement) is a key moderator - structured prompts increase depth</td><td>Rude et al. 2023</td></tr>
+      <tr><td>Outcome assessment timing</td><td>At follow-up, not immediately post-intervention - effects are delayed and durable</td><td>Guo 2023</td></tr>
+      <tr><td>Context for Handwriting Hypothesis</td><td>Pre-LLM handwriting session; 10–20 min immediately before AI interaction</td><td>Kosmyna 2025 (inferred); proposed</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SECTION: GAPS -->
+<section class="section" id="gaps">
+  <div class="section-header">
+    <span class="section-eyebrow">Research Gaps · Critical Analysis</span>
+    <h2 class="section-title">Evidence Gaps & Inferential Bridges</h2>
+    <p class="section-dek">Where the existing evidence base ends and where the Handwriting research begins</p>
+  </div>
+
+  <div class="pillar-grid">
+    <div class="pillar rust">
+      <span class="pillar-label">Gap 1 - Critical</span>
+      <h4>No study has tested handwriting as LLM pre-processor</h4>
+      <p>Kosmyna et al. (2025) used keyboard-based "brain-only" writing as the pre-LLM condition. The neural superiority of handwriting is established in separate literature. No study has directly tested whether handwriting before LLM use produces a more robust priming effect or reduces entropy sink behaviour.</p>
+    </div>
+    <div class="pillar rust">
+      <span class="pillar-label">Gap 2 - Critical</span>
+      <h4>Entropy sink has not been operationalised</h4>
+      <p>The concept of entropy sinks - human-side signal degradation upstream of model collapse - is a novel theoretical construct. No study has measured it as a variable in human-AI interaction research. Operationalising it (perhaps via n-gram analysis, prompt complexity metrics, or EEG during LLM interaction) is a primary challenge for the proposed research.</p>
+    </div>
+    <div class="pillar gold">
+      <span class="pillar-label">Gap 3 - Inferential</span>
+      <h4>Cross-level inference: Yang et al.'s thermodynamic framework</h4>
+      <p>Yang et al. (2026) demonstrate high-entropy advantage at the model's internal parameter space level. Applying this to human input entropy is a cross-level inference. The Handwriting research must operationalise "input entropy" in a way that maps onto the thermodynamic framework, and then demonstrate that handwriting pre-processing measurably increases it.</p>
+    </div>
+    <div class="pillar gold">
+      <span class="pillar-label">Gap 4 - Methodological</span>
+      <h4>Prior writing studies fail to control for modality</h4>
+      <p>No systematic review of expressive writing - including those informing the SIO-ASCO guideline - examined writing modality as a moderator variable. Studies used handwriting, keyboard typing, and online platforms interchangeably. Pooling these is analogous to conflating intravenous and oral drug delivery and calling the result a drug efficacy test.</p>
+    </div>
+    <div class="pillar slate">
+      <span class="pillar-label">Gap 5 - Longitudinal</span>
+      <h4>Long-term cognitive effects of LLM use are unmeasured</h4>
+      <p>Most cognitive offloading and LLM-risk studies are short-duration. Whether the individual-level cognitive debt from LLM use accumulates over months and years, and whether it is reversible, are entirely open questions. The Handwriting research agenda should include a longitudinal arm.</p>
+    </div>
+    <div class="pillar slate">
+      <span class="pillar-label">Gap 6 - Clinical</span>
+      <h4>The SIO-ASCO expressive writing negative recommendation</h4>
+      <p>The SIO-ASCO guideline issued a negative recommendation for expressive writing in cancer-related depression (Recommendation 4.4) on the basis of underdosed (Pennebaker protocol) studies that did not control for modality. Post-2023 studies (Han et al. 2026; Yang et al. 2026) directly contradict this recommendation. The panel itself acknowledged sustained-habit studies "remain to be conducted."</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: TRIAL -->
+<section class="section" id="trial">
+  <div class="section-header">
+    <span class="section-eyebrow">Research Design · Proposed</span>
+    <h2 class="section-title">Proposed Research Design: The Handwriting Study</h2>
+    <p class="section-dek">A protocol to test the hand-brain loop hypothesis within LLM interaction workflows</p>
+  </div>
+
+  <div class="trial">
+    <h3>Study 1: Handwritten Pre-Processing as Cortical Priming in LLM Workflows</h3>
+    <div class="trial-grid">
+      <div class="trial-item">
+        <span class="ti-label">Population</span>
+        <p>Knowledge workers and students who regularly use LLMs (ChatGPT, Claude, etc.) for cognitive tasks - essay writing, analysis, problem-solving. N=60–90 per arm.</p>
+      </div>
+      <div class="trial-item">
+        <span class="ti-label">Arms (3-way RCT)</span>
+        <p>Arm A: 15–20 min handwriting before LLM use. Arm B: 15–20 min keyboard writing before LLM use (Kosmyna replication). Arm C: direct LLM use, no pre-writing (control).</p>
+      </div>
+      <div class="trial-item">
+        <span class="ti-label">Primary outcomes</span>
+        <p>EEG alpha/beta directed connectivity during LLM use (replicating Kosmyna's methodology). Prompt complexity and novelty metrics (entropy operationalisation).</p>
+      </div>
+      <div class="trial-item">
+        <span class="ti-label">Secondary outcomes</span>
+        <p>Critical thinking assessment scores; LLM output quality ratings; working memory capacity pre/post; DMN activation during pre-writing phase (fMRI subset).</p>
+      </div>
+      <div class="trial-item">
+        <span class="ti-label">Duration</span>
+        <p>Single-session (acute) phase for neural priming evidence, plus 4-week daily protocol to capture sustained and delayed effects (neuroplasticity timeline).</p>
+      </div>
+      <div class="trial-item">
+        <span class="ti-label">Modality control</span>
+        <p>Pen on paper (Arm A); keyboard, no screen (Arm B). Writing content: unstructured, expressive - participants write about current thoughts, goals, concerns before AI interaction.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="trial">
+    <h3>Study 2: Entropy Sink Operationalisation - A Longitudinal Cohort</h3>
+    <div class="trial-grid">
+      <div class="trial-item">
+        <span class="ti-label">Design</span>
+        <p>Longitudinal cohort study tracking knowledge workers across 6 and 12 months. Measure LLM usage intensity, cognitive output quality, and neural connectivity at 3-month intervals.</p>
+      </div>
+      <div class="trial-item">
+        <span class="ti-label">Entropy measurement</span>
+        <p>Computational analysis of LLM prompts for linguistic complexity, n-gram novelty, semantic diversity, and conceptual originality - operationalising the "entropy sink" construct as a measurable variable.</p>
+      </div>
+      <div class="trial-item">
+        <span class="ti-label">Intervention arm</span>
+        <p>Daily handwriting journal (10–20 min) before primary LLM interaction. Paper journals collected at 3-month intervals. Compliance tracked via journal return and brief daily log.</p>
+      </div>
+      <div class="trial-item">
+        <span class="ti-label">Hypothesis tested</span>
+        <p>Does sustained daily handwriting practice prevent the entropy sink accumulation seen in the control group - maintaining prompt complexity and neural connectivity over 12 months?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout sage">
+    <strong>Why this research matters beyond the individual</strong>
+    If handwriting pre-processing demonstrably increases prompt entropy and preserves neural connectivity in individual users, this provides the mechanistic link between individual behaviour and systemic model health. This is a genuinely novel contribution to AI safety research - one that requires no engineering intervention, is deployable immediately, and has a cost profile approaching zero.
+  </div>
+</section>
+
+<!-- SECTION: REFERENCES -->
+<section class="section" id="references">
+  <div class="section-header">
+    <span class="section-eyebrow">Literature · Full Citation Index</span>
+    <h2 class="section-title">Complete Reference List</h2>
+    <p class="section-dek">All studies cited across the compendium, organised by domain</p>
+  </div>
+  <div id="refs-container"></div>
+</section>
+
+<footer class="main-footer">
+  <div class="main-footer-l">Randy Rosenthal · Hippocampus Studios Innovation · randy@createchangenow.com · +1 813.205.7606</div>
+  <div class="main-footer-r">Clinical Compendium · April 2026 · 60+ citations</div>
+</footer>
+</main>
+
+<script>
+// ── CARD DATA ──
+const CARDS = {
+  neuro: [
+    {tag:'neuro',title:'Van der Weel & van der Meer (2023): Handwriting leads to widespread brain connectivity; typewriting does not',
+     body:'High-density EEG study, n=36. Handwriting produced widespread theta/alpha connectivity coherence between parietal and central hubs - patterns critical for memory formation and encoding. Typewriting produced desynchronised activity in the same regions. Foundational neurological basis for handwriting superiority in cognitive tasks.',
+     refs:['PMID:38343894']},
+    {tag:'neuro',title:'Ose Askvik, van der Weel & van der Meer (2020): Cursive handwriting superiority replicated in children and adults',
+     body:'High-density EEG study in 12-year-olds and young adults. Cursive handwriting generated event-related synchronised theta in parietal/central regions. Typewriting produced desynchronised activity. The pattern was consistent across age groups, though less pronounced in children - suggesting early handwriting exposure establishes the connectivity architecture.',
+     refs:['PMID:32849069']},
+    {tag:'neuro',title:'Planton et al. (2013): The "handwriting brain" - meta-analysis of neuroimaging',
+     body:'Meta-analysis of neuroimaging studies identifying a primarily left-hemisphere network of 12+ cortical and subcortical regions activated specifically by handwriting: left superior frontal sulcus/middle frontal gyrus, left intraparietal sulcus/superior parietal area, right cerebellum. Frontoparietal systems for motor components; temporo-parietal for visual. This distributed network is not activated by keyboard use.',
+     refs:['PMID:23831432']},
+    {tag:'neuro',title:'Bartoň et al. (2020): Striatum mediates visuomotor integration during handwriting (fMRI)',
+     body:'fMRI study demonstrating that the striatum mediates the transformation of stored letter-shape information into motor output during handwriting. This is a fundamentally sensorimotor process, independent of linguistic content - activated by the physical act of forming letters, not by the words written. Not activated by keyboard use.',
+     refs:['PMID:31901984']},
+    {tag:'neuro',title:'Wenger et al. (2017): Daily fine motor practice produces gray matter changes within 4 weeks',
+     body:'Structural neuroplasticity study. Daily fine motor practice produces measurable motor cortex gray matter expansion within 4 weeks, following a pattern of expansion (synaptogenesis analogue) followed by partial renormalisation despite continued practice. The renormalisation phase must be accounted for in outcome measurement timing for any daily handwriting protocol.',
+     refs:['PMID:27226440']},
+    {tag:'neuro',title:'Saarinen et al. (2020): Task-modulated corticocortical synchrony in the cognitive-motor handwriting network',
+     body:'EEG study characterising the cognitive-motor network supporting handwriting via task-modulated corticocortical synchrony at low frequencies (2–13 Hz) and beta-to-gamma bands (13–45 Hz). Confirms handwriting recruits a distributed network across multiple frequency bands simultaneously.',
+     refs:['PMID:31670795']},
+  ],
+  hvt: [
+    {tag:'cog',title:'Mueller & Oppenheimer (2014): The pen is mightier than the keyboard',
+     body:'Psychological Science. Longhand note-takers performed better on conceptual questions than laptop users despite taking fewer notes. Mechanism: handwriting\'s physical constraints prevent verbatim transcription, forcing reformulation and deeper processing. Laptop users transcribed lectures nearly verbatim, producing shallower encoding.',
+     refs:['PMID:24760141']},
+    {tag:'cog',title:'Ihara et al. (2021): Handwriting advantage for word learning - N400 ERP evidence',
+     body:'EEG study using N400 event-related potentials. Greater N400 priming effects (indicating deeper semantic processing and better memorisation) for words learned through handwriting vs. keyboard typing. Digital pen on tablet showed comparable advantage to ink pen once users were accustomed to the technology. Handwriting also produced significantly more positive mood during learning.',
+     refs:['PMID:34177498']},
+    {tag:'cog',title:'Al-Sharman et al. (2025): Note-taking method and cognitive function in university students',
+     body:'Longhand note-takers demonstrated significantly higher overall cognitive scores (MoCA), superior information processing speed and working memory (SDMT), and better visual memory (BVMT-R) compared to digital stylus users, though effect sizes were small. Digital stylus users showed better inhibitory cognitive control (Stroop). Both outperformed passive conditions.',
+     refs:['PMID:40877847']},
+    {tag:'cog',title:'Cojean & Grand (2024): Note-taking strategies - reformulation happens during handwriting, not revision',
+     body:'British Journal of Educational Psychology. Paper note-takers report more reformulation during initial note-taking vs. computer users, who shift reformulation to the revision phase. Crucially: when revising for deeper processing, students predominantly chose handwriting regardless of their initial note-taking method - suggesting intuitive recognition of handwriting\'s depth advantage.',
+     refs:['PMID:38302257']},
+    {tag:'cog',title:'Wong & Lim (2023): Longhand note-taking reduces mind-wandering and improves lecture retention',
+     body:'Longhand note-taking reduced mind-wandering compared to photographing lecture materials or not taking notes. Reduction in mind-wandering mediated superior retention of lecture content. Students were not aware of this advantage, misjudging all methods as equally effective - suggesting the benefit operates below conscious awareness.',
+     refs:['PMID:34166036']},
+    {tag:'cog',title:'Urry et al. (2021): Direct replication of Mueller & Oppenheimer - mixed findings',
+     body:'Psychological Science. Direct replication found that while laptop participants took more verbatim notes, they did not perform worse on immediate quiz performance. Mini meta-analyses of eight similar studies echoed this pattern. Important caveat: immediate performance advantages are inconsistent. Long-term retention and conceptual learning advantages may be more robust than immediate performance differences.',
+     refs:['PMID:33539228']},
+  ],
+  cog: [
+    {tag:'cog',title:'Seyll et al. (2022): Handwriting requires greater attentional engagement than typing',
+     body:'Dual-task paradigm. Handwriting produced longer reaction times to auditory probes than typing - indicating greater cognitive resource deployment during handwriting. This heightened attentional engagement during the learning process may partly explain the handwriting recognition advantage found in other studies.',
+     refs:['PMID:34941347']},
+    {tag:'cog',title:'Klein & Boals (2001): Expressive writing increases working memory capacity',
+     body:'Journal of Experimental Psychology: General. Expressive writing about thoughts and feelings produced significantly larger working memory gains at 7 weeks vs. trivial-topic writing. Mechanism: reducing intrusive thinking through externalisation frees working memory resources for primary cognitive tasks. The founding study of the WM-liberation mechanism.',
+     refs:['PMID:11561925']},
+    {tag:'cog',title:'Yogo & Fujihara (2008): Expressive writing WM gains replicated in Japanese sample',
+     body:'Cross-cultural replication of Klein & Boals in Japanese undergraduates. Expressive writing about traumatic experiences improved working memory capacity at 5-week follow-up. Establishes cross-cultural generalisability of the WM-liberation mechanism.',
+     refs:['PMID:18230236']},
+    {tag:'cog',title:'Yu & Zhang (2022): Expressive writing reduces choking under pressure in high-anxiety individuals',
+     body:'Pre-performance expressive writing reduced "choking under pressure" in high test-anxious individuals by alleviating state anxiety and preserving cognitive processing capacity. Direct evidence that brief writing before a demanding cognitive task improves performance on that task - the core mechanism of the FRIDAY pre-processor intervention.',
+     refs:['PMID:36612624']},
+    {tag:'cog',title:'Vinci-Booher et al. (2019): Brain systems involved in producing letters by hand',
+     body:'Journal of Cognitive Neuroscience. Analysis of the distributed brain systems specifically activated by handwriting - identifying both writing-specific regions and the broader networks co-recruited. Frontoparietal systems for motor components; temporo-parietal for visual components. Letters by hand engage a richer and more distributed system than any keyboard equivalent.',
+     refs:['PMID:30240307']},
+    {tag:'cog',title:'Cerni & Job (2022): Handwriting uses cascaded processing; typing uses serial-parallel mixture',
+     body:'Direct comparison of central and peripheral processes. Handwriting employs cascaded, continuous processing flow while typing uses a mixed mechanism of serial and parallel modes. These differences indicate distinct mechanisms in segmenting, maintaining, and retrieving orthographic representations - meaning the two modalities are not simply different input methods for the same cognitive process.',
+     refs:['PMID:35446090']},
+  ],
+  mental: [
+    {tag:'mental',title:'Guo (2023): Delayed, durable effects of expressive writing on depression, anxiety, stress - 31 RCT meta-analysis',
+     body:'British Journal of Clinical Psychology. Meta-analysis of 31 RCTs, N=4,012. Expressive writing produced small but significant effect (Hedges\' g = −0.12, 95% CI [−0.21, −0.04]) on depression, anxiety, and stress. Effects emerged at follow-up, not immediately post-intervention. Short inter-session intervals (1–3 days) produced stronger effects (g = −0.18). Critical: outcome timing matters - measuring immediately post-intervention systematically underestimates the effect.',
+     refs:['PMID:36536513']},
+    {tag:'mental',title:'Krpan et al. (2013): Expressive writing benefits formally diagnosed MDD - the only MDD-specific RCT',
+     body:'Journal of Affective Disorders. The only study testing expressive writing specifically in participants with formally diagnosed major depressive disorder. Three sessions of 20 minutes produced significant decreases in BDI and PHQ-9 scores immediately after intervention (Day 5), with benefits persisting at 4-week follow-up. Demonstrates that even brief protocol produces signal under motivated, close-contact conditions.',
+     refs:['PMID:23790815']},
+    {tag:'mental',title:'Rude et al. (2023): Writer engagement and acceptance-enhanced instructions improve expressive writing outcomes',
+     body:'Frontiers in Psychology. Essay length (proxy for engagement depth) moderates outcomes. Benefits emerge primarily for participants who write longer essays. Acceptance-enhanced expressive writing outperformed both traditional EW and control conditions - but only among highly engaged writers. Suggests the standard Pennebaker brief protocol may not generate sufficient engagement to produce effects.',
+     refs:['PMID:37388657']},
+    {tag:'mental',title:'Porras-Segovia et al. (2024): Creative writing therapy for depression - systematic review and meta-analysis',
+     body:'Current Psychiatry Reports. 21 of 31 reviewed studies showed creative writing significantly improved depressive symptoms. Meta-analysis confirmed narrative writing significantly reduced depression compared to neutral writing or treatment as usual at both post-intervention and follow-up. The evidence base for writing and depression is substantially stronger than a single-modality meta-analysis would suggest.',
+     refs:['PMID:38717657']},
+    {tag:'mental',title:'Sohal et al. (2022): Journaling in mental illness management - systematic review and meta-analysis',
+     body:'Family Medicine and Community Health. Meta-analysis of 20 RCTs (31 outcomes). Significant pre-post difference between control (−0.01) and intervention arms (−0.06), indicating 5% difference favouring journaling interventions. High heterogeneity limits definitive conclusions but supports journaling as a beneficial adjunct across mental health conditions.',
+     refs:['PMID:35304431']},
+    {tag:'mental',title:'Menon (2023): 20 years of the Default Mode Network - review and synthesis',
+     body:'Neuron. Comprehensive synthesis establishing the DMN as the neural substrate of autobiographical memory, creative insight, and integrative thinking - the "internal narrative" network. Autobiographical and self-referential processing (core to expressive writing) activates DMN subsystems. Externally-directed, task-oriented LLM-first workflows may suppress DMN expression. No study has directly measured DMN during freewriting.',
+     refs:['PMID:37167968']},
+  ],
+  mci: [
+    {tag:'clinical',title:'Chan et al. (2017): Chinese calligraphy improves working memory in MCI - RCT',
+     body:'Journal of Alzheimer\'s Disease. 8-week Chinese calligraphy intervention in 99 adults with MCI. Significantly improved working memory (DST-Backward span p=0.002) and divided attention (p<0.001) vs. tablet computer training. Working memory improvements persisted at 6-month follow-up - evidence of durable neuroplastic change, not transient performance effect.',
+     refs:['PMID:28482639']},
+    {tag:'clinical',title:'Kwok et al. (2011): Calligraphy therapy produces MMSE gains in dementia RCT',
+     body:'Clinical Interventions in Aging. Calligraphy training increased MMSE scores by 2.36 points in the intervention group while controls declined by 0.41 points (p=0.005). Improvements in orientation, attention, and calculation domains. Even within the Pennebaker-protocol frequency range, handwriting-based interventions show clinical-grade effects in cognitively vulnerable populations.',
+     refs:['PMID:22087066']},
+    {tag:'clinical',title:'Liu et al. (2023): Calligraphy is most effective art therapy for dementia - NMA of 39 RCTs',
+     body:'Frontiers in Psychiatry. Network meta-analysis of 39 RCTs involving 2,801 participants with dementia. Calligraphy therapy ranked as the most effective art therapy for improving cognitive function (MD=4.39 vs. usual care) and quality of life (MD=9.00), outperforming music therapy, reminiscence therapy, and all other modalities.',
+     refs:['PMID:36761861']},
+    {tag:'clinical',title:'Lee et al. (2024): Calligraphy modulates Default Mode Network connectivity in subjective cognitive decline - RCT',
+     body:'EBioMedicine. In 112 community-living adults (mean age 66.3 years) with subjective cognitive decline who already practised calligraphy, doubling practice time over 6 months produced significant DMN connectivity changes: medial PFC to right lateral temporal cortex (p=0.009) and hippocampal formation to right inferior parietal lobe (p=0.009). Direct evidence of DMN modulation by handwriting.',
+     refs:['PMID:38531174']},
+    {tag:'clinical',title:'Wu et al. (2023, JAMA Network Open): Adult literacy activities reduce dementia risk by 9–11%',
+     body:'Cohort study, n=10,318. Among cognitively stimulating activities, adult literacy activities (including writing) showed the largest associations with reduced dementia risk - conferring a 9–11% reduction. Larger effect than physical activity, social activities, or other cognitive activities studied.',
+     refs:['JAMA Network Open 2023;6(7):e2323690']},
+    {tag:'clinical',title:'Hajikarim-Hamedani et al. (2025): Writing as cognitive rehabilitation in MCI and dementia - systematic review',
+     body:'Frontiers in Neurology. Systematic review confirming writing-based therapies (journaling, poetry, calligraphy, memory notebooks) improve memory, attention, executive functions, identity, emotional control, and cognitive resilience in MCI and dementia populations. The intervention is accessible, inexpensive, and suitable for community settings.',
+     refs:['PMID:40963936']},
+  ],
+  pop: [
+    {tag:'clinical',title:'Puyjarinet et al. (2023): ADHD handwriting intervention - large effect sizes (Tau > 0.60)',
+     body:'PRO-PEN psychomotor intervention in children with ADHD. Large effect sizes (Tau > 0.60) for handwriting quality, with positive effects persisting 3 months post-training and generalisation effects extending to other neuropsychological and behavioural domains - including attention and cognitive control.',
+     refs:['PMID:36007100']},
+    {tag:'clinical',title:'Chinese calligraphy therapy for schizophrenia - meta-analysis',
+     body:'Meta-analysis demonstrating Chinese calligraphy therapy significantly reduced positive symptoms (SMD −0.35, p=0.003) and negative symptoms (SMD −1.39, p<0.001) of schizophrenia, as well as overall psychosis. NICE guidelines recommend arts therapies for psychosis, particularly for negative symptoms.',
+     refs:['PMID:29514660']},
+    {tag:'mental',title:'Trauma and PTSD: enhanced expressive writing comparable to PTSD psychotherapy - NMA of 44 RCTs',
+     body:'Network meta-analysis, 7,724 participants. Standard expressive writing: SMD −0.43 vs. waitlist. Enhanced writing with therapist contact: SMD −0.81 - comparable to PTSD psychotherapies (SMD −0.78). A 2025 pragmatic RCT found written exposure therapy equivalent to SSRIs in primary care for PTSD, with both producing clinically meaningful improvement.',
+     refs:['PMID:33634766']},
+    {tag:'clinical',title:'Stroke: home-based handwriting retraining is feasible and acceptable',
+     body:'Four-week home-based handwriting retraining program using task-specific practice was feasible and acceptable to adults with stroke, with improving legibility and neatness identified as important patient-centred goals. Calligraphy-based rehabilitation is being studied as an adjunct to conventional occupational therapy for upper limb dysfunction.',
+     refs:['PMID:26095817']},
+    {tag:'clinical',title:'Cancer survivors: expressive writing improves depression (Han et al. 2026, meta-analysis)',
+     body:'Systematic review and meta-analysis, 24 studies in breast cancer patients. Expressive writing significantly improved depression, anxiety, QOL, benefit finding, and intrusive thoughts. Subgroup analysis: longer-term follow-up produced superior effects; cancer survivors responded better than patients during active chemotherapy.',
+     refs:['PMID:41812013']},
+    {tag:'clinical',title:'Postpartum women: expressive writing effect sizes exceed antidepressants in this population',
+     body:'Meta-analysis. Expressive writing for postpartum depression: SMD = −0.65 (95% CI −1.08 to −0.22) vs. controlled writing. Stress at 1 month: SMD = −0.80. The Cochrane review of antidepressants for postnatal depression found only limited, low-quality evidence of benefit - making expressive writing a clinically compelling non-pharmacological alternative.',
+     refs:['PMID:39651593']},
+  ],
+  llm: [
+    {tag:'llm',title:'Kosmyna et al. (2025): Your brain on ChatGPT - EEG evidence of cognitive debt accumulation',
+     body:'The pivotal study for the Handwriting Hypothesis. EEG analysis during ChatGPT-assisted essay writing revealed systematic downscaling of brain functional connectivity within alpha and beta networks as AI support increases - expressed as reduced critical and creative thinking. Critically: participants who engaged in "brain-only" (keyboard) writing before switching to the LLM exhibited a network-wide spike in alpha, beta, theta, and delta directed connectivity. Handwriting was not tested - this is the gap the Handwriting Hypothesis addresses.',
+     refs:['Kosmyna et al. 2025 (verify full publication details)']},
+    {tag:'llm',title:'Tian & Zhang (2025): AI dependence reduces critical thinking - 580 Chinese university students',
+     body:'Greater AI dependence was associated with lower critical thinking scores in 580 Chinese university students. Cognitive fatigue partially mediated this relationship. Information literacy played a dual role: buffering AI dependence\'s negative effects on critical thinking but also amplifying cognitive fatigue when AI reliance was high.',
+     refs:['PMID:41076923']},
+    {tag:'llm',title:'Deng & Deng (2025): Addictive ChatGPT use and cognitive miserliness',
+     body:'Social Science & Medicine. Addictive ChatGPT use was predicted by heightened activity in the impulsive cognitive system, with dysregulation between impulsive and reflective systems facilitating "cognitive miserliness" - a tendency to minimize cognitive effort. Analysis of 3M+ generative AI conversations: prolonged daily use associated with evidence of dependence and reduced social engagement; briefer interactions correlated with improved well-being.',
+     refs:['PMID:40763403']},
+    {tag:'llm',title:'Perlis et al. (2026): Generative AI use and depressive symptoms in US adults - nationally representative survey',
+     body:'JAMA Network Open. 2026 nationally representative survey of US adults found associations between AI use and depressive symptoms, though causality remains unclear. Among college students, greater chatbot use was associated with greater depressive symptoms. These patterns parallel concerns with social media research, where associations with depression are documented but causal relationships remain contested.',
+     refs:['doi:10.1001/jamanetworkopen.2025.54820']},
+    {tag:'llm',title:'León-Domínguez (2024): Neuropsychological risks of AI chatbots on executive function - theoretical framework',
+     body:'Neuropsychology. Framework based on the "neuronal recycling hypothesis" proposes that AI chatbots may influence cognitive development via three mechanisms: deskilling (loss of acquired skills), never-skilling (failure to develop skills), and mis-skilling (development of inappropriate cognitive patterns). Particularly concerning for younger users in skill development stages.',
+     refs:['PMID:38300581']},
+    {tag:'llm',title:'Risko & Gilbert (2016): Cognitive offloading - the theoretical foundation',
+     body:'Trends in Cognitive Sciences. Foundational paper establishing cognitive offloading - the reduction in cognitive demand when AI (or other external systems) substitutes for rather than supports human reasoning. When offloading is to an LLM, the cognitive work is done externally and the internal representation is not formed. Handwriting before LLM use may ensure the internal representation exists before external assistance begins.',
+     refs:['PMID: Trends Cogn Sci 2016;20(9):676-688']},
+  ],
+  entropy: [
+    {tag:'entropy',title:'Shumailov et al. (2024, Nature): AI models collapse when trained on recursively generated data',
+     body:'Mathematical proof and empirical demonstration that models trained on recursively AI-generated data suffer "model collapse" - progressively degraded performance as training data loses diversity. Direct synthetic data injection is being mitigated. The entropy sink mechanism operates differently: human-generated data that becomes lower-entropy through cognitive debt-induced shallowing provides a slower, harder-to-detect path to the same degradation.',
+     refs:['Nature 2024;631:755-759']},
+    {tag:'entropy',title:'Yang et al. (2026, npj Artificial Intelligence): High-entropy advantage in neural network generalisability',
+     body:'npj Artificial Intelligence (Nature portfolio, doi:10.1038/s44387-026-00100-7). Using Boltzmann entropy and molecular simulation across four ML tasks, high-entropy network states - occupying a larger volume of parameter space - consistently outperform conventionally trained states in generalisability. Note: findings operate at internal parameter space level; applying to human input entropy is a cross-level inference - closing this gap is a Handwriting Hypothesis objective.',
+     refs:['doi:10.1038/s44387-026-00100-7']},
+    {tag:'entropy',title:'Sparrow, Liu & Wegner (2011): Google effects on memory - transactive memory and cognitive offloading',
+     body:'Science. Seminal demonstration that knowing information is accessible externally (Google) reduces memory encoding for that information. Established transactive memory theory in the digital context. The LLM analogue is more extreme: not merely knowing where to find information, but having the thinking done on your behalf - with commensurately greater memory and reasoning impact.',
+     refs:['Science 2011;333(6043):776-778']},
+    {tag:'entropy',title:'Perrow (1984) & Hollnagel (2004): Complex systems theory - non-linear accumulation of distributed degradations',
+     body:'Complex systems theory establishes that small, distributed degradations accumulate non-linearly, often remaining invisible until a criticality threshold is crossed. In human-AI systems where cognitive output functions as a continuous input signal, even modest reductions in signal quality across large user populations represent an aggregate risk accumulation mechanism that current AI safety frameworks are not designed to detect or measure.',
+     refs:['Perrow 1984; Hollnagel 2004']},
+  ],
+  dose: [
+    {tag:'dose',title:'Guo (2023): Short session intervals (1–3 days) yield stronger expressive writing effects',
+     body:'Meta-analysis of 31 RCTs demonstrating that session interval is the most robust dosing parameter: 1–3 day intervals: g = −0.18. Medium intervals (4–7 days): weaker. Long intervals (>7 days): weakest. Effects emerge at follow-up, not immediately. This has direct implications for the Handwriting protocol design: daily or near-daily handwriting pre-sessions are likely to produce stronger effects than weekly sessions.',
+     refs:['PMID:36536513']},
+    {tag:'dose',title:'Cochrane (Woods et al. 2023): Frequency determines cognitive stimulation effect size - SMD 0.04 vs. 0.51',
+     body:'Cochrane review of cognitive stimulation. Once-weekly: SMD 0.04 (negligible). ≥2×/week: SMD 0.51 (clinically meaningful). A twelvefold difference attributable solely to frequency. The standard Pennebaker protocol sits in the negligible range regardless of content. This is the foundational dose-response evidence for the underdosing critique.',
+     refs:['Cochrane doi:10.1002/14651858.CD005562.pub3']},
+    {tag:'dose',title:'Cochrane (Bahar-Fuchs et al. 2019): >3×/week yields SMD 1.0 for cognitive training vs. 0.05 for ≤3×/week',
+     body:'Cochrane review of cognitive training. Subgroup analysis: >3×/week associated with larger effects on verbal fluency (SMD 1.0) vs. ≤3×/week (SMD 0.05). This twenty-fold difference based on frequency alone shows that protocol design - specifically frequency - is as important as intervention content in determining effect size.',
+     refs:['Cochrane doi:10.1002/14651858.CD013069.pub2']},
+    {tag:'dose',title:'Rude et al. (2023): Writer engagement (essay length) moderates expressive writing outcomes',
+     body:'Deeper engagement (operationalised as essay length) predicts better outcomes. The standard Pennebaker brief protocol may not generate sufficient depth of engagement to produce effects, particularly in unsupervised, home-based delivery. Acceptance-enhanced instructions + high engagement produced the best outcomes. Protocol design must account for engagement, not just frequency.',
+     refs:['PMID:37388657']},
+  ],
+};
+
+const REFS = [
+  {cat:'Foundational Handwriting Neuroscience',refs:[
+    {id:'PMID:38343894',title:'Handwriting but Not Typewriting Leads to Widespread Brain Connectivity',meta:'Van der Weel FRR, Van der Meer ALH. Frontiers in Psychology. 2023;14:1219945.',url:'https://pubmed.ncbi.nlm.nih.gov/38343894'},
+    {id:'PMID:32849069',title:'The Importance of Cursive Handwriting Over Typewriting for Learning in the Classroom',meta:'Ose Askvik E et al. Frontiers in Psychology. 2020;11:1810.',url:'https://pubmed.ncbi.nlm.nih.gov/32849069'},
+    {id:'PMID:23831432',title:'The "Handwriting Brain": A Meta-Analysis of Neuroimaging Studies',meta:'Planton S et al. Cortex. 2013;49(10):2772-87.',url:'https://pubmed.ncbi.nlm.nih.gov/23831432'},
+    {id:'PMID:31901984',title:'The Role of the Striatum in Visuomotor Integration During Handwriting (fMRI)',meta:'Bartoň M et al. J Neural Transm. 2020;127(3):331-337.',url:'https://pubmed.ncbi.nlm.nih.gov/31901984'},
+    {id:'PMID:27226440',title:'Repeated Structural Imaging Reveals Nonlinear Progression of Experience-Dependent Volume Changes in Human Motor Cortex',meta:'Wenger E et al. Cerebral Cortex. 2017;27(5):2911-2925.',url:'https://pubmed.ncbi.nlm.nih.gov/27226440'},
+    {id:'PMID:31670795',title:'Task-Modulated Corticocortical Synchrony in the Cognitive-Motor Network Supporting Handwriting',meta:'Saarinen T et al. Cerebral Cortex. 2020;30(3):1871-1886.',url:'https://pubmed.ncbi.nlm.nih.gov/31670795'},
+    {id:'PMID:30240307',title:'An Analysis of the Brain Systems Involved With Producing Letters by Hand',meta:'Vinci-Booher S et al. Journal of Cognitive Neuroscience. 2019;31(1):138-154.',url:'https://pubmed.ncbi.nlm.nih.gov/30240307'},
+  ]},
+  {cat:'Handwriting vs. Typing - Comparative Outcomes',refs:[
+    {id:'PMID:24760141',title:'The Pen Is Mightier Than the Keyboard: Advantages of Longhand Over Laptop Note Taking',meta:'Mueller PA, Oppenheimer DM. Psychological Science. 2014;25(6):1159-68.',url:'https://pubmed.ncbi.nlm.nih.gov/24760141'},
+    {id:'PMID:34177498',title:'Advantage of Handwriting Over Typing on Learning Words: Evidence From N400 ERP',meta:'Ihara AS et al. Frontiers in Human Neuroscience. 2021;15:679191.',url:'https://pubmed.ncbi.nlm.nih.gov/34177498'},
+    {id:'PMID:33539228',title:"Don't Ditch the Laptop Just Yet: A Direct Replication of Mueller and Oppenheimer",meta:'Urry HL et al. Psychological Science. 2021;32(3):326-339.',url:'https://pubmed.ncbi.nlm.nih.gov/33539228'},
+    {id:'PMID:40877847',title:'Exploring the Impact of Note Taking Methods on Cognitive Function Among University Students',meta:'Al-Sharman A et al. BMC Medical Education. 2025;25(1):1218.',url:'https://pubmed.ncbi.nlm.nih.gov/40877847'},
+    {id:'PMID:34941347',title:'Attentional Engagement in Letter-Like Shape Learning',meta:'Seyll L et al. Journal of Experimental Psychology: General. 2022;151(8):1762-1771.',url:'https://pubmed.ncbi.nlm.nih.gov/34941347'},
+    {id:'PMID:38302257',title:'Note-Taking by University Students on Paper or a Computer: Strategies During Initial Note-Taking and Revision',meta:'Cojean S, Grand M. British Journal of Educational Psychology. 2024;94(2):557-570.',url:'https://pubmed.ncbi.nlm.nih.gov/38302257'},
+    {id:'PMID:34166036',title:'Take Notes, Not Photos: Mind-Wandering Mediates Impact of Note-Taking on Video-Recorded Lecture Learning',meta:'Wong SSH, Lim SWH. Journal of Experimental Psychology: Applied. 2023;29(1):124-135.',url:'https://pubmed.ncbi.nlm.nih.gov/34166036'},
+    {id:'PMID:35446090',title:'The Interaction of Central and Peripheral Processes in Typing and Handwriting: A Direct Comparison',meta:'Cerni T, Job R. Journal of Experimental Psychology: HPP. 2022;48(6):563-581.',url:'https://pubmed.ncbi.nlm.nih.gov/35446090'},
+  ]},
+  {cat:'Working Memory, Expressive Writing & Cognitive Load',refs:[
+    {id:'PMID:11561925',title:'Expressive Writing Can Increase Working Memory Capacity',meta:'Klein K, Boals A. Journal of Experimental Psychology: General. 2001;130(3):520-33.',url:'https://pubmed.ncbi.nlm.nih.gov/11561925'},
+    {id:'PMID:18230236',title:'Working Memory Capacity Can Be Improved by Expressive Writing: A Randomized Experiment in a Japanese Sample',meta:'Yogo M, Fujihara S. British Journal of Health Psychology. 2008;13(Pt 1):77-80.',url:'https://pubmed.ncbi.nlm.nih.gov/18230236'},
+    {id:'PMID:36612624',title:"Effects of Expressive Writing on 'Choking Under Pressure' in High Test-Anxious Individuals",meta:'Yu Y, Zhang X. Int J Environ Research Public Health. 2022;20(1):302.',url:'https://pubmed.ncbi.nlm.nih.gov/36612624'},
+    {id:'PMID:37167968',title:'20 Years of the Default Mode Network: A Review and Synthesis',meta:'Menon V. Neuron. 2023;111(16):2469-2487.',url:'https://pubmed.ncbi.nlm.nih.gov/37167968'},
+  ]},
+  {cat:'Mental Health - Expressive Writing',refs:[
+    {id:'PMID:36536513',title:'The Delayed, Durable Effect of Expressive Writing on Depression, Anxiety and Stress: A Meta-Analytic Review',meta:'Guo L. British Journal of Clinical Psychology. 2023;62(1):272-297.',url:'https://pubmed.ncbi.nlm.nih.gov/36536513'},
+    {id:'PMID:23790815',title:'An Everyday Activity as a Treatment for Depression: Benefits of Expressive Writing for People With MDD',meta:'Krpan KM et al. Journal of Affective Disorders. 2013;150(3):1148-51.',url:'https://pubmed.ncbi.nlm.nih.gov/23790815'},
+    {id:'PMID:37388657',title:'Chasing Elusive Expressive Writing Effects: Emotion-Acceptance Instructions and Writer Engagement Improve Outcomes',meta:'Rude SS et al. Frontiers in Psychology. 2023;14:1192595.',url:'https://pubmed.ncbi.nlm.nih.gov/37388657'},
+    {id:'PMID:38717657',title:'Writing to Keep on Living: A Systematic Review and Meta-Analysis on Creative Writing Therapy for Depression',meta:'Porras-Segovia A et al. Current Psychiatry Reports. 2024;26(7):359-378.',url:'https://pubmed.ncbi.nlm.nih.gov/38717657'},
+    {id:'PMID:35304431',title:'Efficacy of Journaling in the Management of Mental Illness: A Systematic Review and Meta-Analysis',meta:'Sohal M et al. Family Medicine and Community Health. 2022;10(1):e001154.',url:'https://pubmed.ncbi.nlm.nih.gov/35304431'},
+    {id:'PMID:33634766',title:'Writing-Based Interventions for PTSD: Network Meta-Analysis of 44 RCTs',meta:'Lv J et al. Comprehensive Psychiatry. 2021;106:152225.',url:'https://pubmed.ncbi.nlm.nih.gov/33634766'},
+  ]},
+  {cat:'MCI, Dementia & Aging',refs:[
+    {id:'PMID:28482639',title:'Chinese Calligraphy Writing for Augmenting Attentional Control and Working Memory in MCI: RCT',meta:'Chan SCC et al. Journal of Alzheimer\'s Disease. 2017;58(3):735-746.',url:'https://pubmed.ncbi.nlm.nih.gov/28482639'},
+    {id:'PMID:22087066',title:'Cognitive Effects of Calligraphy Therapy for Older People: RCT in Hong Kong',meta:'Kwok TC et al. Clinical Interventions in Aging. 2011;6:269-73.',url:'https://pubmed.ncbi.nlm.nih.gov/22087066'},
+    {id:'PMID:36761861',title:'Comparative Efficacy of Various Art Therapies for Patients With Dementia: Network Meta-Analysis of 39 RCTs',meta:'Liu Q et al. Frontiers in Psychiatry. 2023;14:1072066.',url:'https://pubmed.ncbi.nlm.nih.gov/36761861'},
+    {id:'PMID:38531174',title:'Effect of Increasing Cognitive Activity Participation on Default Mode Network in Older Adults With SCD: RCT',meta:'Lee ATC et al. EBioMedicine. 2024;102:105082.',url:'https://pubmed.ncbi.nlm.nih.gov/38531174'},
+    {id:'PMID:40963936',title:'Writing as Cognitive Rehabilitation in MCI and Dementia: A Systematic Review',meta:'Hajikarim-Hamedani A et al. Frontiers in Neurology. 2025;16:1568336.',url:'https://pubmed.ncbi.nlm.nih.gov/40963936'},
+    {id:'PMID:28129407',title:'Long-Term Experience of Chinese Calligraphic Handwriting Is Associated With Better Executive Functions',meta:'Chen W et al. PLoS One. 2017;12(1):e0170660.',url:'https://pubmed.ncbi.nlm.nih.gov/28129407'},
+  ]},
+  {cat:'LLM Cognitive Risk & AI Safety',refs:[
+    {id:'Kosmyna2025',title:'Your Brain on ChatGPT: Accumulation of Cognitive Debt When Using an AI Assistant for Essay Writing Task',meta:'Kosmyna N et al. 2025. [Verify full publication details]',url:''},
+    {id:'PMID:41076923',title:"Learners' AI Dependence and Critical Thinking: The Psychological Mechanism of Fatigue and the Social Buffering Role of AI Literacy",meta:'Tian J, Zhang R. Acta Psychologica. 2025;260:105725.',url:'https://pubmed.ncbi.nlm.nih.gov/41076923'},
+    {id:'PMID:40763403',title:'Becoming a Cognitive Miser? Antecedents and Consequences of Addictive ChatGPT Use',meta:'Deng Z, Deng Z. Social Science & Medicine. 2025;383:118467.',url:'https://pubmed.ncbi.nlm.nih.gov/40763403'},
+    {id:'PMID:38300581',title:'Potential Cognitive Risks of Generative Transformer-Based AI Chatbots on Higher Order Executive Functions',meta:'León-Domínguez U. Neuropsychology. 2024;38(4):293-308.',url:'https://pubmed.ncbi.nlm.nih.gov/38300581'},
+    {id:'doi:10.1001/jamanetworkopen.2025.54820',title:'Generative AI Use and Depressive Symptoms Among US Adults',meta:'Perlis RH et al. JAMA Network Open. 2026;9(1):e2554820.',url:'https://jamanetwork.com/journals/jamanetworkopen/fullarticle/10.1001/jamanetworkopen.2025.54820'},
+  ]},
+  {cat:'Entropy, Systems Risk & Theoretical Foundations',refs:[
+    {id:'Nature2024',title:'AI Models Collapse When Trained on Recursively Generated Data',meta:'Shumailov I et al. Nature. 2024;631:755-759.',url:''},
+    {id:'npjAI2026',title:'High-Entropy Advantage in Neural Networks\' Generalizability',meta:'Yang E et al. npj Artificial Intelligence. 2026;2:44. doi:10.1038/s44387-026-00100-7',url:'https://doi.org/10.1038/s44387-026-00100-7'},
+    {id:'Science2011',title:'Google Effects on Memory: Cognitive Consequences of Having Information at Our Fingertips',meta:'Sparrow B, Liu J, Wegner DM. Science. 2011;333(6043):776-778.',url:''},
+    {id:'Risko2016',title:'Cognitive Offloading',meta:'Risko EF, Gilbert SJ. Trends in Cognitive Sciences. 2016;20(9):676-688.',url:''},
+    {id:'vanderMeer2017',title:'Only Three Fingers Write, But the Whole Brain Works',meta:'van der Meer ALH, van der Weel FR. Frontiers in Psychology. 2017;8:967.',url:''},
+  ]},
+];
+
+// ── RENDER CARDS ──
+function buildCards(data, containerId) {
+  const c = document.getElementById(containerId);
+  if (!c) return;
+  data.forEach((item, i) => {
+    const id = containerId + i;
+    const div = document.createElement('div');
+    div.className = 'card searchable';
+    div.setAttribute('data-text', (item.title + ' ' + item.body + ' ' + item.refs.join(' ')).toLowerCase());
+    div.innerHTML = `<div class="card-head" onclick="toggleCard('${id}')">
+      <span class="card-tag tag-${item.tag}">${item.tag}</span>
+      <div class="card-title">${item.title}</div>
+      <span class="card-chev" id="chev-${id}">▾</span>
+    </div>
+    <div class="card-body" id="bd-${id}">
+      <p>${item.body}</p>
+      <div class="card-refs">${item.refs.map(r=>`<span class="card-ref">${r}</span>`).join('')}</div>
+    </div>`;
+    c.appendChild(div);
+  });
+}
+
+function toggleCard(id) {
+  const bd = document.getElementById('bd-' + id);
+  const ch = document.getElementById('chev-' + id);
+  const o = bd.classList.toggle('open');
+  ch.classList.toggle('open', o);
+}
+
+// ── RENDER REFS ──
+function buildRefs() {
+  const c = document.getElementById('refs-container');
+  REFS.forEach(cat => {
+    const label = document.createElement('div');
+    label.className = 'ref-cat-label';
+    label.textContent = cat.cat;
+    c.appendChild(label);
+    const list = document.createElement('div');
+    list.className = 'ref-list';
+    cat.refs.forEach(r => {
+      const div = document.createElement('div');
+      div.className = 'ref-entry searchable';
+      div.setAttribute('data-text', (r.title + ' ' + r.meta + ' ' + r.id).toLowerCase());
+      div.innerHTML = `<div class="ref-num">${r.id}</div>
+        <div class="ref-title">${r.url ? `<a href="${r.url}" target="_blank">${r.title}</a>` : r.title}</div>
+        <div class="ref-meta">${r.meta}</div>`;
+      list.appendChild(div);
+    });
+    c.appendChild(list);
+  });
+}
+
+// ── SEARCH ──
+function doSearch(q) {
+  const v = q.trim().toLowerCase();
+  const all = document.querySelectorAll('.searchable');
+  let count = 0;
+  all.forEach(el => {
+    const text = el.getAttribute('data-text') || '';
+    const match = !v || text.includes(v);
+    el.style.display = match ? '' : 'none';
+    if (match && v) count++;
+  });
+  const sc = document.getElementById('searchCount');
+  if (v) {
+    sc.textContent = count + ' result' + (count !== 1 ? 's' : '');
+    document.querySelectorAll('.ref-cat-label').forEach(l => l.style.display = '');
+  } else {
+    sc.textContent = '';
+    document.querySelectorAll('.ref-cat-label').forEach(l => l.style.display = '');
+  }
+}
+
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  doSearch('');
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  const overlay = document.getElementById('sidebar-overlay');
+  if (overlay) overlay.classList.toggle('open');
+}
+
+// ── SIDEBAR ACTIVE STATE ──
+function setActive(el) {
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('sidebar').classList.remove('open');
+  const overlay = document.getElementById('sidebar-overlay');
+  if (overlay) overlay.classList.remove('open');
+}
+
+// ── INTERSECTION OBSERVER for sidebar highlight ──
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.sb-link');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.2 });
+sections.forEach(s => observer.observe(s));
+
+// ── INIT ──
+buildCards(CARDS.neuro, 'cards-neuro');
+buildCards(CARDS.hvt, 'cards-hvt');
+buildCards(CARDS.cog, 'cards-cog');
+buildCards(CARDS.mental, 'cards-mental');
+buildCards(CARDS.mci, 'cards-mci');
+buildCards(CARDS.pop, 'cards-pop');
+buildCards(CARDS.llm, 'cards-llm');
+buildCards(CARDS.entropy, 'cards-entropy');
+buildCards(CARDS.dose, 'cards-dose');
+buildRefs();
+</script>
+</body>
+</html>
